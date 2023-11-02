@@ -1,0 +1,447 @@
+{
+  "texture_names_ordered": [
+    "Abstract_008",
+    "Abstract_009",
+    "Abstract_Organic_004",
+    "Abstract_Organic_006",
+    "Bark_007",
+    "Bricks_Terracotta_002",
+    "Bricks_Terracotta_003",
+    "Concrete_Blocks_005",
+    "Concrete_Blocks_006",
+    "Concrete_Blocks_008",
+    "Concrete_Blocks_009",
+    "Concrete_Blocks_012",
+    "Coral_001",
+    "Coral_002",
+    "Crystal_003",
+    "Fabric_Padded_007",
+    "Fabric_Padded_Polyester_002",
+    "Fabric_Quilt_003",
+    "Glass_Stained_001",
+    "Glass_Window_004",
+    "Gravel_001",
+    "Honeycomb_002",
+    "Lava_005",
+    "Lava_006",
+    "Leather_Padded_001",
+    "Leather_weave_002",
+    "Metal_Corrugated_010",
+    "Metal_Mesh_002",
+    "Metal_Mesh_006",
+    "Metal_Plate_Sci-fi_002",
+    "Metal_Tiles_002",
+    "Paper_Lantern_001",
+    "Pavement_Brick_001",
+    "Pebbles_025",
+    "Pebbles_027",
+    "Plastic_Tubes_001",
+    "Pumpkin_001",
+    "Rock_031",
+    "Rocks_Hexagons_002",
+    "Roof_Tiles_Terracotta_006",
+    "Roof_Tiles_Terracotta_007",
+    "Rubber_Sole_001",
+    "Rubber_Sole_003",
+    "Sci-Fi_Padded_Fabric_004",
+    "Sci-Fi_Wall_012",
+    "Sci-fi_Hose_005",
+    "Sci-fi_Wall_004",
+    "Sci-fi_Wall_005",
+    "Sci-fi_Wall_009",
+    "Sci-fi_Wall_010",
+    "Skin_Lizard_002",
+    "Stone_Path_007",
+    "Stylized_Cliff_Rock_001",
+    "Stylized_Cliff_Rock_003",
+    "Stylized_Crystal_002",
+    "Stylized_Fur_001",
+    "Stylized_Fur_002",
+    "Stylized_Grass_003",
+    "Stylized_Rocks_002",
+    "Stylized_Stone_Floor_005",
+    "Stylized_Thatched_Roof_001",
+    "Stylized_Thatched_Roof_002",
+    "Stylized_Wood_Tiles_001",
+    "Stylized_blocks_001",
+    "Substance_Graph",
+    "Tiles_047",
+    "Waffle_001",
+    "Wall_Shells_001",
+    "Wood_Acoustic_Panel_001",
+    "Wood_Ceiling_001",
+    "Wood_Chiseled_001",
+    "Wood_Panel_003"
+  ],
+  "texture_names": [
+    "Honeycomb_002",
+    "Abstract_008",
+    "Abstract_009",
+    "Lava_005",
+    "Skin_Lizard_002",
+    "Stylized_Wood_Tiles_001",
+    "Wood_Chiseled_001",
+    "Stylized_Cliff_Rock_001",
+    "Sci-Fi_Padded_Fabric_004",
+    "Sci-fi_Wall_004",
+    "Leather_Padded_001",
+    "Waffle_001",
+    "Wall_Shells_001",
+    "Sci-Fi_Wall_012",
+    "Sci-fi_Wall_010",
+    "Rocks_Hexagons_002",
+    "Abstract_Organic_004",
+    "Abstract_Organic_006",
+    "Bark_007",
+    "Bricks_Terracotta_002",
+    "Bricks_Terracotta_003",
+    "Concrete_Blocks_005",
+    "Concrete_Blocks_006",
+    "Concrete_Blocks_008",
+    "Concrete_Blocks_009",
+    "Concrete_Blocks_012",
+    "Coral_001",
+    "Coral_002",
+    "Crystal_003",
+    "Fabric_Padded_007",
+    "Fabric_Padded_Polyester_002",
+    "Fabric_Quilt_003",
+    "Glass_Stained_001",
+    "Glass_Window_004",
+    "Gravel_001",
+    "Lava_006",
+    "Leather_weave_002",
+    "Metal_Corrugated_010",
+    "Metal_Mesh_002",
+    "Metal_Mesh_006",
+    "Metal_Plate_Sci-fi_002",
+    "Metal_Tiles_002",
+    "Paper_Lantern_001",
+    "Pavement_Brick_001",
+    "Pebbles_025",
+    "Pebbles_027",
+    "Plastic_Tubes_001",
+    "Pumpkin_001",
+    "Rock_031",
+    "Roof_Tiles_Terracotta_006",
+    "Roof_Tiles_Terracotta_007",
+    "Rubber_Sole_001",
+    "Rubber_Sole_003",
+    "Sci-fi_Hose_005",
+    "Sci-fi_Wall_005",
+    "Sci-fi_Wall_009",
+    "Stone_Path_007",
+    "Stylized_Cliff_Rock_003",
+    "Stylized_Crystal_002",
+    "Stylized_Fur_001",
+    "Stylized_Fur_002",
+    "Stylized_Grass_003",
+    "Stylized_Rocks_002",
+    "Stylized_Stone_Floor_005",
+    "Stylized_Thatched_Roof_001",
+    "Stylized_Thatched_Roof_002",
+    "Stylized_blocks_001",
+    "Substance_Graph",
+    "Tiles_047",
+    "Wood_Acoustic_Panel_001",
+    "Wood_Ceiling_001",
+    "Wood_Panel_003"
+  ],
+
+  "object_info": {
+    "mug": {
+      "thumbnail": "data/meshes/mug/mug.png",
+      "scale": 1.05,
+      "point_light": 0.9,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "chair": {
+      "thumbnail": "data/meshes/chair/chair.png",
+      "scale": 1.1,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "armor": {
+      "thumbnail": "data/meshes/armor/armor.png",
+      "scale": 1.2,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "sphere_nonhomogeneous": {
+      "thumbnail": "data/meshes/sphere_nonhomogeneous/sphere_nonhomogeneous.png",
+      "scale": 0.9,
+      "point_light": 0.35,
+      "ambient_light": 1.0,
+      "center": false
+    },
+    "torus": {
+      "thumbnail": "data/meshes/torus/torus.png",
+      "scale": 1.0,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "flatland": {
+      "thumbnail": "data/meshes/flatland/flatland.png",
+      "scale": 1.15,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "scorpion": {
+      "thumbnail": "data/meshes/scorpion/scorpion.png",
+      "scale": 1.15,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "paimon": {
+      "thumbnail": "data/meshes/paimon/paimon.png",
+      "scale": 1.2,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "skull": {
+      "thumbnail": "data/meshes/skull/skull.png",
+      "scale": 1.05,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "springer": {
+      "thumbnail": "data/meshes/springer/springer.png",
+      "scale": 1.0,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "banana": {
+      "thumbnail": "data/meshes/banana/banana.png",
+      "scale": 1.15,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "airplane": {
+      "thumbnail": "data/meshes/airplane/airplane.png",
+      "scale": 1.05,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "alien": {
+      "thumbnail": "data/meshes/alien/alien.png",
+      "scale": 1.1,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "armadillo": {
+      "thumbnail": "data/meshes/armadillo/armadillo.png",
+      "scale": 1.15,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "boat": {
+      "thumbnail": "data/meshes/boat/boat.png",
+      "scale": 1.1,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "boot": {
+      "thumbnail": "data/meshes/boot/boot.png",
+      "scale": 1.1,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "brucewick": {
+      "thumbnail": "data/meshes/brucewick/brucewick.png",
+      "scale": 1.1,
+      "point_light": 0.8,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "buddha": {
+      "thumbnail": "data/meshes/buddha/buddha.png",
+      "scale": 1.05,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "bunny": {
+      "thumbnail": "data/meshes/bunny/bunny.png",
+      "scale": 1.15,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "cat": {
+      "thumbnail": "data/meshes/cat/cat.png",
+      "scale": 1.05,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "cow": {
+      "thumbnail": "data/meshes/cow/cow.png",
+      "scale": 1.05,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "demosthenes": {
+      "thumbnail": "data/meshes/demosthenes/demosthenes.png",
+      "scale": 1.0,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "falconstatue": {
+      "thumbnail": "data/meshes/falconstatue/falconstatue.png",
+      "scale": 1.0,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "fish": {
+      "thumbnail": "data/meshes/fish/fish.png",
+      "scale": 1.15,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "goathead": {
+      "thumbnail": "data/meshes/goathead/goathead.png",
+      "scale": 1.2,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "hand": {
+      "thumbnail": "data/meshes/hand/hand.png",
+      "scale": 1.05,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "human_man": {
+      "thumbnail": "data/meshes/human_man/human_man.png",
+      "scale": 1.15,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "manual_subdivide": true
+    },
+    "human_woman": {
+      "thumbnail": "data/meshes/human_woman/human_woman.png",
+      "scale": 1.15,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "manual_subdivide": true
+    },
+    "koala": {
+      "thumbnail": "data/meshes/koala/koala.png",
+      "scale": 1.05,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "lionstatue": {
+      "thumbnail": "data/meshes/lionstatue/lionstatue.png",
+      "scale": 1.3,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "mountain": {
+      "thumbnail": "data/meshes/mountain/mountain.png",
+      "scale": 1.05,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "mushroom": {
+      "thumbnail": "data/meshes/mushroom/mushroom.png",
+      "scale": 1.25,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "nefertiti": {
+      "thumbnail": "data/meshes/nefertiti/nefertiti.png",
+      "scale": 1.15,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "manual_subdivide": false
+    },
+    "penguin": {
+      "thumbnail": "data/meshes/penguin/penguin.png",
+      "scale": 1.05,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "seashell": {
+      "thumbnail": "data/meshes/seashell/seashell.png",
+      "scale": 1.05,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "sphere": {
+      "thumbnail": "data/meshes/sphere/sphere.png",
+      "scale": 0.9,
+      "point_light": 0.35,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "spot": {
+      "thumbnail": "data/meshes/spot/spot.png",
+      "scale": 1.05,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "strawberry": {
+      "thumbnail": "data/meshes/strawberry/strawberry.png",
+      "scale": 1.1,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "stuffedtoy": {
+      "thumbnail": "data/meshes/stuffedtoy/stuffedtoy.png",
+      "scale": 1.05,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "vase": {
+      "thumbnail": "data/meshes/vase/vase.png",
+      "scale": 1.0,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "violin": {
+      "thumbnail": "data/meshes/violin/violin.png",
+      "scale": 1.15,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "manual_subdivide": true
+    },
+    "wingnut": {
+      "thumbnail": "data/meshes/wingnut/wingnut.png",
+      "scale": 1.05,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    }
+  }
+}

@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description"
+          content="Mesh Neural Cellular Automata">
+    <meta name="keywords" content="MeshNCA, NCA, DyNCA">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mesh Neural Cellular Automata</title>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <link rel="icon" href="./static/images/favicon.png">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+
+    <!--    <script src="./static/js/bulma-carousel.min.js"></script>-->
+    <!--    <script src="./static/js/bulma-slider.min.js"></script>-->
+    <!--    <script src="./static/js/index.js"></script>-->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://distill.pub/template.v2.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <!--    <script src="twgl.min.js"></script>-->
+    <script src="https://webgl2fundamentals.org/webgl/resources/twgl-full.min.js"></script>
+
+    <script src="https://webgl2fundamentals.org/webgl/resources/m4.js"></script>
+    <script src="https://webgl2fundamentals.org/webgl/resources/v3.js"></script>
+
+    <script type="module" src="./dynca.js"></script>
+    <script type="module" src="./demo.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+
+
+
+
+
+    </script>
+
+</head>
+
+<svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="playIcon" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z"></path>
+        <path d="M0 0h24v24H0z" fill="none"></path>
+    </symbol>
+    <symbol id="pauseIcon" viewBox="0 0 24 24">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+        <path d="M0 0h24v24H0z" fill="none"></path>
+    </symbol>
+    <symbol id="resetIcon" viewBox="0 0 24 24">
+        <path d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"></path>
+    </symbol>
+    <symbol id="zoomInIcon" viewBox="0 0 24 24">
+        <path d="M0 0h24v24H0V0z" fill="none"/>
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        <path d="M12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/>
+    </symbol>
+    <symbol id="zoomOutIcon" viewBox="0 0 24 24">
+        <path d="M0 0h24v24H0V0z" fill="none"/>
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM7 9h5v1H7z"/>
+    </symbol>
+    <symbol id="mouse" viewBox="0 0 100 100">
+        <path d="M32,41v18c0,9.9,8.1,18,18,18c9.9,0,18-8.1,18-18V41c0-9.9-8.1-18-18-18C40.1,23,32,31.1,32,41z M50,27c7.7,0,14,6.3,14,14  v18c0,7.7-6.3,14-14,14s-14-6.3-14-14V41C36,33.3,42.3,27,50,27z"></path>
+        <path d="M50,44c1.1,0,2-0.9,2-2v-6c0-1.1-0.9-2-2-2s-2,0.9-2,2v6C48,43.1,48.9,44,50,44z"></path>
+        <path d="M48.6,92.4C49,92.8,49.5,93,50,93s1-0.2,1.4-0.6l5-5c0.8-0.8,0.8-2,0-2.8s-2-0.8-2.8,0L50,88.2l-3.6-3.6  c-0.8-0.8-2-0.8-2.8,0c-0.8,0.8-0.8,2,0,2.8L48.6,92.4z"></path>
+        <path d="M48.6,7.6l-5,5c-0.8,0.8-0.8,2,0,2.8C44,15.8,44.5,16,45,16s1-0.2,1.4-0.6l3.6-3.6l3.6,3.6C54,15.8,54.5,16,55,16  s1-0.2,1.4-0.6c0.8-0.8,0.8-2,0-2.8l-5-5C50.6,6.8,49.4,6.8,48.6,7.6z"></path>
+    </symbol>
+</svg>
+
+
+<body>
+
+
+<section class="hero">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <h1 class="title is-1 publication-title">Mesh Neural Cellular Automata</h1>
+                    <div class="is-size-4 publication-authors">
+                        <span class="author-block">
+                            <a href="https://scholar.google.com/citations?hl=en&user=bddQ6pQAAAAJ">Ehsan Pajouheshgar</a><sup>*</sup>,</span>
+                        <span class="author-block">
+                            <a href="https://scholar.google.com/citations?user=jvCvNPQAAAAJ&hl=en/">Yitao Xu</a><sup>*</sup>,</span>
+                        <span class="author-block">
+                            <a href="https://scholar.google.com/citations?user=A_HbzQMAAAAJ/">Alexander Mordvinstev</a>,</span>
+                        <br>
+                        <span class="author-block">
+                            <a href="https://scholar.google.se/citations?user=x5sfH5MAAAAJ&hl=en/">Eyvind Niklasson</a>,</span>
+                        <span class="author-block">
+                            <a href="https://scholar.google.com/citations?user=kCy8JG8AAAAJ&hl=en">Tong Zhang</a>,</span>
+                        <span class="author-block">
+                            <a href="https://www.epfl.ch/labs/ivrl/">Sabine Süsstrunk</a></span>
+
+
+                    </div>
+                    <div class="is-size-5 publication-authors">
+                        <span class="author-block">Image and Visual Representation Lab (IVRL)</span>
+                    </div>
+                    <!--                    <div class="is-size-5 publication-authors">-->
+                    <!--                        <span class="author-block">School of Computer and Communication Sciences (IC)</span>-->
+                    <!--                    </div>-->
+                    <div class="is-size-5 publication-authors">
+                        <span class="author-block">École Polytechnique Fédérale de Lausanne (EPFL)</span>
+                    </div>
+
+                    <!--                    <div class="is-size-4 publication-authors">-->
+                    <!--                        <span class="author-block">CVPR 2023 Conference</span>-->
+                    <!--                    </div>-->
+
+                    <div class="column has-text-centered">
+                        <div class="publication-links">
+                            <!-- PDF Link. -->
+                            <!--                            <span class="link-block">-->
+                            <!--                <a href=""-->
+                            <!--                   class="external-link button is-normal is-rounded is-dark">-->
+                            <!--                  <span class="icon">-->
+                            <!--                      <i class="fas fa-file-pdf"></i>-->
+                            <!--                  </span>-->
+                            <!--                  <span>Paper</span>-->
+                            <!--                </a>-->
+                            <!--              </span>-->
+
+                            <!-- Arxiv. -->
+                            <span class="link-block">
+                                <a href=""
+                                   class="external-link button is-normal is-rounded is-dark">
+                                  <span class="icon">
+                                      <i class="ai ai-arxiv"></i>
+                                  </span>
+                                  <span>arXiv (Coming Soon)</span>
+                                </a>
+                            </span>
+
+                            <!-- Supplementary. -->
+                            <!--                            <span class="link-block">-->
+                            <!--                                <a href=""-->
+                            <!--                                   class="external-link button is-normal is-rounded is-dark">-->
+                            <!--                                  <span class="icon">-->
+                            <!--                                      <svg class="svg-inline&#45;&#45;fa fa-file-pdf fa-w-12" aria-hidden="true"-->
+                            <!--                                           focusable="false" data-prefix="fas" data-icon="file-pdf" role="img"-->
+                            <!--                                           xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path-->
+                            <!--                                              fill="currentColor"-->
+                            <!--                                              d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-29.1 24.5-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z"></path></svg>-->
+                            <!--                                      &lt;!&ndash; <i class="fas fa-file-pdf"></i> Font Awesome fontawesome.com &ndash;&gt;-->
+                            <!--                                  </span>-->
+                            <!--                                  <span>Supplementary (Coming soon)</span>-->
+                            <!--                                </a>-->
+                            <!--                            </span>-->
+
+                            <!-- Video Link. -->
+                            <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video (Coming Soon)</span>
+                </a>
+              </span>
+                            <!-- Code Link. -->
+                            <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Coming Soon)</span>
+                  </a>
+              </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--<section class="section is-light">-->
+<!--    <div class="container is-max-desktop">-->
+<!--        <div class="navbar-start" style="flex-grow: 1; justify-content: center;">-->
+<!--            <a class="navbar-item">-->
+<!--      <span class="icon">-->
+<!--          <i class="fas fa-home"></i>-->
+<!--      </span>-->
+<!--            </a>-->
+
+<!--            <div class="navbar-item has-dropdown is-hoverable">-->
+<!--                <a class="navbar-link" id="select_demo_type">-->
+<!--                    Select Demo Type: Texture as Target-->
+<!--                </a>-->
+<!--                <div class="navbar-dropdown">-->
+<!--                    <a class="navbar-item" id="exp_type_image_target"> Texture as Target</a>-->
+<!--                    <a class="navbar-item" id="exp_type_text_target"> Prompt as Target</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="columns is-centered has-text-centered">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<section class="hero teaser">
+    <div class="container">
+
+
+        <div class="hero-body">
+            <div class="l-body-outset grid" id="demo">
+                <div>
+
+                    <div class="canvas_container">
+                        <canvas id="demo-canvas"></canvas>
+                        <div id="canvas_text">
+                            <div>steps / sec: <span id="sps"></span></div>
+                            <div>frame / sec: <span id="fps"></span></div>
+                        </div>
+
+                        <div id="canvas_shading_controls">
+                            <input type="checkbox" id="enable_roughness_map" checked="checked"> Roughness Map</br>
+                            <input type="checkbox" id="enable_normal_map" checked="checked"> Normal Map</br>
+                            <input type="checkbox" id="enable_ao_map" checked="checked"> AO Map</br>
+                        </div>
+
+                        <div id="canvas_vis_mode">
+                            <center>Vis Mode</center>
+                            <select name="Visualization Mode" id="visMode" class="option_select">
+                                <option value="color">Color</option>
+                                <option value="albedo">Albedo</option>
+                                <option value="normal">Normal</option>
+                                <option value="height">Height</option>
+                                <option value="roughness">Roughness</option>
+                                <option value="ao">AO</option>
+                                <option value="graft">Graft Weights</option>
+                            </select>
+                        </div>
+
+                        <div id="canvas_grafting">
+                            Grafting Texture<br>
+                            <input type="checkbox" id="enable_grafting" checked="checked"> Enable Grafting</br>
+                            <select name="Grafting Texture" id="graft_select" class="option_select">
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="demo-controls">
+                        <div class="play-reset tooltip" style="text-align: left;">
+                    <span id="play-pause">
+
+                                                <svg class="icon" id="play"><use xlink:href="#playIcon"></use></svg>
+                                                <svg class="icon" id="pause" style="display: none;"><use
+                                                        href="#pauseIcon"></use></svg>
+                    </span>
+                            <svg class="icon" id="reset">
+                                <use href="#resetIcon"></use>
+                            </svg>
+
+                            <label>
+                                <img id="benchmark" src="images/benchmark.png" width="72px" height="72px"/>
+                            </label>
+
+                        </div>
+                        <div class="speed">
+                            <input type="range" id="speed" min="0" max="4" step="1" value="2"></br>Speed: <label
+                                id="speedLabel"></label>
+                        </div>
+
+                        <div style="text-align: right;">
+                            <label>
+                                <img id="screenshot" src="images/screenshot.png" width="56px" height="56"/>
+                            </label>
+
+
+                            <label>
+                                <img id="camera_toggle" src="images/camera_locked.png" width="64px" height="64px"/>
+                            </label>
+
+                            <svg class="icon" id="zoomIn">
+                                <use xlink:href="#zoomInIcon"></use>
+                            </svg>
+                            <svg class="icon" id="zoomOut">
+                                <use xlink:href="#zoomOutIcon"></use>
+                            </svg>
+                        </div>
+                        <div id='brushSelect' class="button-group">
+                            <label>
+                                <input type="radio" name="brush"><img
+                                    src="images/brush_S.png" width="64px" height="64px"/>
+                            </label>
+                            <label>
+                                <input type="radio" name="brush"><img src="images/brush_M.png" width="64px"
+                                                                      height="64px"/>
+                            </label>
+                            <label>
+                                <input type="radio" name="brush" checked="checked"><img
+                                    src="images/brush_L.png" width="64px" height="64px"/>
+                            </label>
+                            <br> Brush Size
+                        </div>
+
+                        <div>
+                            <input type="range" id="rotation" min="0" max="360" step="1" value="0"></br>Rotation:
+                            <label id="rotationLabel"></label><br>
+                            <input type="range" id="bumpiness" min="-50" max="50" step="1" value="3"></br>Bumpiness:
+                            <label id="bumpinessLabel"></label>
+                        </div>
+                        <div id='subdivisionSelect' class="button-group">
+                            <label>
+                                <input type="radio" name="config"><img
+                                    src="images/subdivision_lvl1.png" width="64px" height="64px"/>
+                            </label>
+                            <label>
+                                <input type="radio" name="config" checked="checked"><img
+                                    src="images/subdivision_lvl2.png"
+                                    width="64px"
+                                    height="64px"/>
+                            </label>
+                            <label>
+                                <input type="radio" name="config"><img
+                                    src="images/subdivision_lvl3.png"
+                                    width="64px"
+                                    height="64px"/>
+                            </label>
+                            <br>Subdivision Level
+                        </div>
+                        <!--                        <div id='alignSelect'>-->
+                        <!--                            <label>-->
+                        <!--                                <input type="radio" checked="checked" name="align"><img-->
+                        <!--                                    src="images/icons.svg#alignRegular"/>-->
+                        <!--                            </label>-->
+                        <!--                            <label>-->
+                        <!--                                <input type="radio" name="align"><img src="images/icons.svg#alignPolar"/>-->
+                        <!--                            </label>-->
+                        <!--                            <label>-->
+                        <!--                                <input type="radio" name="align"><img src="images/icons.svg#alignDipole"/>-->
+                        <!--                            </label>-->
+                        <!--                            <br>Local Coordinate <br>Transformation-->
+                        <!--                        </div>-->
+
+
+                        <!--                        <div class="bumpiness">-->
+                        <!--                            <input type="range" id="pointLight" min="0" max="100" step="1" value="50"></br>Point Light:-->
+                        <!--                            <label id="pointLightLabel">50%</label><br>-->
+                        <!--                            <input type="range" id="ambientLight" min="0" max="100" step="1" value="50"></br>Ambient-->
+                        <!--                            Light:-->
+                        <!--                            <label id="ambientLightLabel">50%</label><br>-->
+
+
+                        <!--                        </div>-->
+
+
+                    </div>
+                    <br>
+                    <div class="demo-tip">
+
+                        <img id="hint_img" src="images/pointer.svg">
+                        <div class="hint ">
+                            Click or tap on the mesh to graft a new texture onto it.
+                        </div>
+
+                    </div>
+                    <div class="demo-tip">
+
+                        <img id="shift_img" src="images/shift.png">
+                        <div class="hint ">
+                            Hold Shift-Key and drag the mouse to rotate the camera.
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div id="pattern-controls">
+                    <div class="pattern-selector-title" id="pattern_selector_title">
+                        <span>Target Appearance</span>
+                    </div>
+                    <!--                    <div class="texture-overlay overlaygrad">-->
+                    <!--                    </div>-->
+                    <!--                    <div class="texture-overlay overlayicon">-->
+                    <!--                    </div>-->
+                    <div id="texture" class="pattern-selector">
+                        <!-- a hacky way to add some padding, so the fadeout doesn't cover items in the scroll. -->
+                        <div class="whitespace"></div>
+                    </div>
+                    <div class="pattern-selector-title" id="mesh_selector_title">
+                        <span>Target Mesh</span>
+                    </div>
+                    <!--                    <div class="motion-overlay overlaygrad" id="motion_overlay_grad">-->
+                    <!--                    </div>-->
+                    <!--                    <div class="motion-overlay overlayicon" id="motion_overlay_icon">-->
+                    <!--                    </div>-->
+                    <div id="mesh" class="pattern-selector">
+                        <div class="whitespace"></div>
+                    </div>
+                    <div id="texhint">
+                        <div class="pattern-selector-title"><span>Original Texture</span></div>
+
+                        <!--                        <div class='texture-square' id="texture_img"></div>-->
+                        <div id="texture_img"></div>
+                        <span id="texture_hint"></span>
+
+                        <div class="pattern-selector-title"><span>Grafting Texture</span></div>
+                        <!--                        <div class='texture-square' id="graft_img"></div>-->
+                        <div id="graft_img"></div>
+                        <span id="graft_hint"></span>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<section class="section hero is-light">
+    <div class="container is-max-desktop">
+        <!-- Abstract. -->
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h2 class="title is-3">Abstract</h2>
+                <div class="content has-text-justified">
+                    <p>
+                        Modeling and synthesizing textures are essential for enhancing the realism of virtual
+                        environments. Methods that directly synthesize textures in 3D offer distinct advantages to the
+                        UV-mapping-based methods as they can create seamless textures and align more closely with the
+                        ways textures form in nature. We propose <b>Mesh</b> <b>N</b>eural <b>C</b>ellular
+                        <b>A</b>utomata (<b>MeshNCA</b>), a method for directly synthesizing dynamic textures on 3D
+                        meshes without requiring any UV maps.
+                        MeshNCA extends the existing NCA model and enables operating on non-grid-like structures such as
+                        3D meshes. Our MeshNCA model while only being trained on an Icosphere mesh, shows remarkable
+                        generalization and can synthesize textures in real time on any mesh after the training. MeshNCA
+                        allows multi-modal supervision and can be trained using different targets such as images, text
+                        prompts, and motion vector fields. Moreover, we conceptualize a way of grafting trained MeshNCA
+                        instances, enabling texture interpolation. MeshNCA enables real-time 3D texture synthesis on
+                        meshes and allows several user interactions including texture density/orientation control, a
+                        grafting brush, and motion speed/direction control. Finally, we implement the forward pass of
+                        our MeshNCA model using the WebGL shading language and showcase our trained models in an online
+                        interactive demo which is accessible on personal computers and smartphones.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <!--/ Abstract. -->
+
+        <!-- Paper video. -->
+        <!--        <div class="columns is-centered has-text-centered">-->
+        <!--            <div class="column is-four-fifths">-->
+        <!--                <h2 class="title is-3">Video</h2>-->
+        <!--                <div class="publication-video">-->
+        <!--                    <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"-->
+        <!--                            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--/ Paper video. -->
+    </div>
+</section>
+
+<!--<section class="section is-light">-->
+<!--    <div class="container is-max-desktop">-->
+<!--        &lt;!&ndash; Abstract. &ndash;&gt;-->
+<!--        <div class="columns is-centered has-text-centered">-->
+<!--            <div class="column is-four-fifths">-->
+<!--                <h2 class="title is-3">How it works?</h2>-->
+<!--                <div class="content has-text-justified">-->
+
+<!--                    <img src="images/dynca_video_cut.png" height="100%"/>-->
+<!--                    <br><br>-->
+<!--                    <p>-->
+<!--                        How the model works.-->
+<!--                    </p>-->
+
+
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+<!--    </div>-->
+<!--</section>-->
+
+
+<section class="section">
+    <div class="container is-max-desktop">
+
+        <div class="columns">
+
+
+            <div class="column">
+                <h2 class="title is-3">Summary of Results</h2>
+                <div class="content has-text-justified">
+
+                    <div class="content is-centered has-text-centered">
+                        <video autoplay controls muted loop playsinline height="100%">
+                            <source src="./videos/teaser.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                    <p>
+                        MeshNCA can synthesize textures given guidance from exemplar texture images or text prompts.
+                        Additionally, given a target vector field, MeshNCA can synthesize dynamic textures on 3D meshes
+                        that follow the target motion.
+                        Remarkably, in all of our experiments, MeshNCA can generalize to any mesh in test-time after
+                        being trained on an Icosphere mesh.
+                    </p>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="columns">
+
+
+            <div class="column">
+                <h2 class="title is-3">MeshNCA Properties</h2>
+                <div class="content has-text-justified">
+
+
+                    <p>
+                        Additionally, MeshNCA entails many remarkable test-time properties which make this model very
+                        suitable
+                        for real-time and interactive applications. These properties include:
+                        Generalization to unseen meshes, Generalization to animated meshes,
+                        self organization, grafting,
+                        texture density control, texture orientation,
+                        emergent spontaneous motion, and motion direction control.
+
+                    </p>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="columns is-centered">
+
+            <!-- Visual Effects. -->
+            <div class="column">
+                <div class="content">
+                    <h2 class="title is-5 is-centered has-text-centered">Generalization to Unseen Meshes</h2>
+                    <p>
+                        MeshNCA is only trained on an Icosphere that has 40,962 vertices. Remarkably, after training,
+                        MeshNCA can generalize to almost any mesh since it only relies on local communication. Here we
+                        show generalization to the mug mesh that has a hole, and the anime mesh which has very sharp
+                        edges.
+                    </p>
+                    <div class="content is-centered has-text-centered">
+                        <img src="./images/results/unseen_meshes.png"
+                             alt="Controlling the texture density by subdividing the mesh."/>
+                    </div>
+
+                </div>
+            </div>
+            <!--/ Visual Effects. -->
+
+            <div class="column">
+                <div class="content">
+                    <h2 class="title is-5 is-centered has-text-centered">Generalization to Animated Meshes</h2>
+                    <p>
+                        The spherical-harmonics-based perception stage in MeshNCA is invariant to mesh translation and
+                        scaling.
+                        Additionally, we find that MeshNCA is robust against moving vertices and can texture animated
+                        meshes seamlessly.
+                    </p>
+                    <br>
+                    <div class="content is-centered has-text-centered">
+                        <video autoplay controls muted loop playsinline height="100%">
+                            <source src="./videos/animated_horse_lava.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Matting. -->
+
+        </div>
+
+        <div class="columns is-centered">
+
+            <!-- Visual Effects. -->
+            <div class="column">
+                <div class="content">
+                    <h2 class="title is-5 is-centered has-text-centered">Self Organization</h2>
+                    <p>
+                        In MeshNCA, each cell (vertex) communicates with its neighbors and updates itself
+                        asynchronously. This type of distributed local update rule allows the cell to self-organize and
+                        be robust against perturbation.
+
+                    </p>
+                    <div class="content is-centered has-text-centered">
+                        <video autoplay controls muted loop playsinline height="100%">
+                            <source src="./videos/self-organization.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                </div>
+            </div>
+            <!--/ Visual Effects. -->
+
+            <div class="column">
+                <div class="content">
+                    <h2 class="title is-5 is-centered has-text-centered">Grafting</h2>
+                    <p>
+                        MeshNCA and in general NCA models are inspired from biological cells.
+                        Similar to biological systems, two compatible MeshNCA
+                        instances can be grafted to create a seamless transition between textures.
+                    </p>
+                    <div class="content is-centered has-text-centered">
+                        <video autoplay controls muted loop playsinline height="100%">
+                            <source src="./videos/graft.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Matting. -->
+
+        </div>
+
+
+        <div class="columns is-centered">
+
+            <!-- Visual Effects. -->
+            <div class="column">
+                <div class="content">
+                    <h2 class="title is-5 is-centered has-text-centered">Texture Density Control</h2>
+                    <p>
+                        MeshNCA is invariant to the scale of the underlying mesh and the density of the synthesized
+                        texture depends on the number of the vertices on the mesh. This allows the user to control the
+                        texture density by the subdividing the mesh.
+
+                    </p>
+                    <div class="content is-centered has-text-centered">
+                        <img src="./images/results/subdivision_comparison.png"
+                             alt="Controlling the texture density by subdividing the mesh."/>
+                    </div>
+
+                </div>
+            </div>
+            <!--/ Visual Effects. -->
+
+            <div class="column">
+                <div class="content">
+                    <h2 class="title is-5 is-centered has-text-centered">Texture Orientation Control</h2>
+                    <p>
+                        In MeshNCA, cells receive directional information thorough the spherical-harmonics-based
+                        perception. By rotating the spherical harmonics basis around the surface normal for each cell,
+                        MeshNCA allows the users to re-orient the synthesized texture in real time.
+                    </p>
+                    <div class="content is-centered has-text-centered">
+                        <video autoplay controls muted loop playsinline height="100%">
+                            <source src="videos/texture-orientation.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Matting. -->
+
+        </div>
+
+        <div class="columns is-centered">
+
+            <!-- Visual Effects. -->
+            <div class="column">
+                <div class="content">
+                    <h2 class="title is-5 is-centered has-text-centered">Emergent Spontaneous Motion</h2>
+                    <p>
+                        Although the MeshNCA's training signal originates from a static exemplar texture image, the
+                        model is able to spontaneously generate stable but randomly moving textures. This emergent
+                        spontaneous motion can also be supervised using our proposed motion loss.
+
+                    </p>
+                    <div class="content is-centered has-text-centered">
+                        <video autoplay controls muted loop playsinline height="100%">
+                            <source src="./videos/spontaneous-motion.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                </div>
+            </div>
+            <!--/ Visual Effects. -->
+
+            <div class="column">
+                <div class="content">
+                    <h2 class="title is-5 is-centered has-text-centered">Motion Direction Control</h2>
+                    <p>
+                        In MeshNCA, cells receive directional information thorough the spherical-harmonics-based
+                        perception. By rotating the spherical harmonics basis around the surface normal for each cell,
+                        MeshNCA allows the users to control the motion direction in real time.
+                    </p>
+
+                    <div class="content is-centered has-text-centered">
+                        <video autoplay controls muted loop playsinline height="100%">
+                            <source src="./videos/motio-direction.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Matting. -->
+
+        </div>
+
+        <div class="columns is-centered">
+
+            <!-- Visual Effects. -->
+            <div class="column">
+                <h2 class="title is-5 is-centered has-text-centered">Fitting PBR Textures</h2>
+                <div class="content has-text-justified">
+
+                    <div class="content is-centered has-text-centered">
+                        <video autoplay controls muted loop playsinline height="100%">
+                            <source src="./videos/multi-channel.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                    <p>
+                        MeshNCA can effectively leverage the shared structural similarity of PBR textures -- i.e.
+                        Albedo, Normal, Height, Roughness, and Ambient Occlusion Maps -- and simultaneously multiple
+                        texture maps. In the models presented in our demo, each cell has a 16 dimensional state. We
+                        assign 3 dimensions to albedo, 3 to surface normal map, 1 to height map, 1 to roughness map, and
+                        1 to ambient occlusion map. Notice that a single MeshNCA model synthesizes all of these texture
+                        maps. The <i>Color</i> option in the visualization mode corresponds to the results
+                        of applying a physically-based-rendering shader on the MeshNCA synthesized texture maps.
+                    </p>
+
+
+                </div>
+            </div>
+            <!--/ Visual Effects. -->
+
+
+            <!-- Matting. -->
+
+        </div>
+
+    </div>
+</section>
+
+<section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+        <h2 class="title">BibTeX</h2>
+        <pre><code>Citation</code></pre>
+    </div>
+
+</section>
+
+
+<footer class="footer">
+    <div class="columns is-centered">
+        <div class="column is-8">
+            <div class="content">
+                <p>
+                    This website is licensed under a <a rel="license"
+                                                        href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                    Commons Attribution-ShareAlike 4.0 International License</a>.
+                </p>
+
+                <p>
+                    Our demo is built upon the source code of<a href="https://distill.pub/selforg/2021/textures/">
+                    Self-Organizing Textures</a> paper on distill.
+                </p>
+
+                <p>
+                    Website source code is based on the <a href="https://nerfies.github.io/"> Nerfies</a> project page.
+                    If
+                    you want to reuse their <a href="https://github.com/nerfies/nerfies.github.io">source code</a>,
+                    please credit them appropriately.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</footer>
+
+</body>
+</html>
+
+
+<!--<script src="https://cdn.jsdelivr.net/npm/twgl-base.js@4.9.0/dist/4.x/twgl.min.js"></script>-->
+<!--<script src="https://twgljs.org/dist/5.x/twgl-full.min.js"></script>-->
+<!--<script src="twgl-full.module.js"></script>-->
+<!--<script src="twgl.min.js"></script>-->
+<!--<script src="https://webgl2fundamentals.org/webgl/resources/twgl-full.min.js"></script>-->
+<script src="https://webgl2fundamentals.org/webgl/resources/twgl-full.min.js"></script>
+
+<script src="dat.gui.min.js"></script>
+<script type="module">
+    import {createDemo} from './demo.js'
+
+    createDemo('demo');
+</script>

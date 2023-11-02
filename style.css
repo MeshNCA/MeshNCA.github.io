@@ -1,0 +1,673 @@
+
+#demo {
+    font-size: 20px;
+    user-select: none;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    grid-auto-flow: column;
+    row-gap: 10px;
+    grid-column: middle;
+}
+
+
+.hint a {
+    color: inherit;
+}
+
+@media (min-width: 1180px) {
+    #demo {
+        grid-template-columns: 6fr 4fr;
+        /*grid-template-columns: 512px 1fr;*/
+        grid-template-rows: auto;
+    }
+
+    #pattern-controls {
+        grid-row: 1;
+    }
+}
+
+#demo-canvas {
+    border: 1px solid lightgrey;
+    image-rendering: pixelated;
+    touch-action: none;
+    cursor: default;
+    width: 100%;
+    /*background: red;*/
+}
+
+
+#pattern-controls {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content minmax(0, 0.3fr) min-content minmax(0, 0.3fr) minmax(0, 0.32fr) minmax(0, 0.1fr);
+    /*row-gap: 20px;*/
+    overflow: hidden;
+}
+
+@media (max-width: 1180px) {
+    #pattern-controls {
+        grid-template-rows: min-content minmax(0, 0.4fr) min-content minmax(0, 0.4fr) min-content minmax(0, 0.1fr);
+    }
+}
+
+.pattern-selector::-webkit-scrollbar {
+    display: none;
+}
+
+
+/*.pattern-selector-texture::-webkit-scrollbar {*/
+/*    display: none;*/
+/*}*/
+
+
+/*.pattern-selector-motion::-webkit-scrollbar {*/
+/*    display: none;*/
+/*}*/
+
+.demo-tip {
+    display: grid;
+    grid-template-columns: 40px auto;
+    align-items: center;
+    column-gap: 5px;
+    margin-bottom: 15px;
+}
+
+#hint_img {
+    /*position: absolute;*/
+    width: 40px;
+    height: 40px;
+    /*top: 26px;*/
+    /*left: -48px;*/
+}
+
+#shift_img {
+    /*position: absolute;*/
+    width: 35px;
+    height: 35px;
+    /*top: 26px;*/
+    /*left: -48px;*/
+}
+
+#status {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+    font-family: monospace;
+}
+
+#model-hints {
+    color: rgba(0, 0, 0, 0.6);
+    grid-column: 1/3;
+}
+
+#model-hints span {
+    display: none;
+}
+
+.hint {
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 1.4em;
+    user-select: text;
+}
+
+input[type=range] {
+    -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+    width: 95%; /* Specific width is required for Firefox. */
+    background: transparent; /* Otherwise white in Chrome */
+    margin-bottom: 8px;
+}
+
+.hint a {
+    font-size: 90%;
+}
+
+@media (max-width: 350px) {
+    .hint a {
+        font-size: 75%;
+    }
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+    outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+
+input[type=range]::-ms-track {
+    width: 100%;
+    cursor: pointer;
+
+    /* Hides the slider so custom styles can be added */
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+/* Thumb */
+
+/* Special styling for WebKit/Blink */
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: steelblue;
+    cursor: pointer;
+    margin-top: -6px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+}
+
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: steelblue;
+    cursor: pointer;
+    border: none;
+}
+
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: grey;
+    cursor: pointer;
+}
+
+/* Track */
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    border: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    border: none;
+}
+
+input[type=range]::-ms-track {
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    border: none;
+}
+
+input[type=range]::-ms-fill-lower {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+input[type=range]:focus::-ms-fill-lower {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+input[type=range]::-ms-fill-upper {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+input[type=range]:focus::-ms-fill-upper {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+input[type="radio"] {
+    background-color: steelblue;
+}
+
+#colab-hero-div {
+    /*grid-column: 1/3;*/
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: rgba(0, 0, 0, 0.1);
+    padding-top: 15px;
+    text-align: center;
+}
+
+#colab-hero {
+    margin: auto;
+    /*display: block;*/
+    text-align: center;
+    /*width: 200px;*/
+    height: 16px;
+}
+
+.pattern-selector {
+    grid-column: 1/3;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+    justify-items: center;
+    overflow-x: hidden;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-y: contain;
+    padding-top: 5px;
+    max-height: 1200px;
+}
+
+/*.pattern-selector-texture {*/
+/*    grid-column: 1/3;*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));*/
+/*    justify-items: center;*/
+/*    overflow-x: hidden;*/
+/*    scroll-snap-type: x mandatory;*/
+/*    overscroll-behavior-y: contain;*/
+/*    padding-top: 5px;*/
+/*}*/
+
+/*.pattern-selector-motion {*/
+/*    grid-column: 1/3;*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));*/
+/*    justify-items: center;*/
+/*    overflow-x: hidden;*/
+/*    scroll-snap-type: x mandatory;*/
+/*    overscroll-behavior-y: contain;*/
+/*    padding-top: 5px;*/
+/*}*/
+
+/*.pattern-selector > :last-child {*/
+/*margin-bottom: 100%;*/
+/*}*/
+
+.pattern-selector-title {
+    grid-column: 1/3;
+    text-align: center;
+    font-weight: bold;
+    /*padding-bottom: 3%;*/
+    /*padding-top: 3px;*/
+}
+
+#mesh_selector {
+    padding-top: 3%;
+}
+
+.overlaygrad {
+    z-index: 1;
+    pointer-events: none;
+    height: 100%;
+    background: linear-gradient(to bottom, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0.0) 10%, rgba(255, 255, 255, 0.0) 90%, rgb(255, 255, 255) 100%);
+}
+
+.overlayicon {
+    z-index: 1;
+    pointer-events: none;
+    height: 100%;
+    /*background: url(images/mouse.svg) rgba(255, 255, 255, 0.4);*/
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1.0;
+    transition: opacity 1.0s ease-out;
+}
+
+#texture_img {
+    margin: auto;
+    /*margin-top: 0px;*/
+    height: 128px;
+    width: 128px;
+    /*background-position: center;*/
+}
+
+#graft_img {
+    margin: auto;
+    /*margin-top: 0px;*/
+    /*margin-top: 0px;*/
+    height: 128px;
+    width: 128px;
+    background-position: center;
+}
+
+#texhint {
+    max-height: 225px;
+    grid-column: 1/3;
+    /*grid-template-columns: 64px 64px;*/
+    column-count: 2;
+    grid-template-columns: 1fr 1fr;
+
+    /*grid-column: 1/3;*/
+    margin-top: 10px;
+    border-top: 2px solid rgba(0, 0, 0, 0.2);
+    border-top-width: 4px;
+    border-top-style: solid;
+    border-top-color: rgba(0, 0, 0, 0.2);
+    /*text-align: center;*/
+    line-height: 2em;
+}
+
+.whitespace {
+    grid-column: 1/-1;
+    height: 5px;
+    width: 1px;
+}
+
+/* PHONES */
+@media (max-width: 500px) {
+    .whitespace {
+        grid-column: auto;
+        height: 1px;
+        width: 1px;
+        /* Also a hack - indends the point at which scroll starts... */
+        margin-right: 55px;
+    }
+
+    #pattern-controls {
+        grid-template-rows: min-content 64px min-content 64px 0.25fr 0.1fr;
+    }
+
+    .pattern-selector {
+        grid-template-columns: repeat(100, minmax(64px, 1fr));
+        grid-template-rows: auto;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        padding-top: 0%;
+        padding-left: 2%;
+        overscroll-behavior-y: auto;
+    }
+
+
+    .overlaygrad {
+        z-index: 1;
+        pointer-events: none;
+        height: 100%;
+        background: linear-gradient(to right, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0.0) 5%, rgba(255, 255, 255, 0.0) 95%, rgb(255, 255, 255) 100%);
+    }
+
+    .overlayicon {
+        z-index: 1;
+        pointer-events: none;
+        height: 100%;
+        background: url(images/touch.svg) rgba(255, 255, 255, 0.4);
+        background-size: 55px;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 1.0;
+        transition: opacity 1.0s ease-out;
+    }
+
+    .pattern-selector-title {
+        padding-bottom: 0%;
+    }
+
+    #texhint {
+        height: 135px;
+    }
+
+    #texture_img {
+        background-position: center;
+        height: 128px;
+        width: 128px;
+
+    }
+
+    #graft_img {
+        background-position: center;
+        height: 64px;
+        width: 64px;
+
+    }
+}
+
+.pattern-selector * {
+    cursor: pointer;
+}
+
+.pattern-selector * {
+    cursor: pointer;
+}
+
+
+.texture-square {
+    /*background-image: url('textures/banded.png');*/
+    /*background-position:center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    */
+    /* some weird kludge to allow same width as height */
+    --border-width: 5px;
+    border-style: solid;
+    box-sizing: border-box;
+    border-width: var(--border-width);
+    border-color: white;
+    width: 100%;
+    height: 0;
+    padding-top: calc(100% - 2 * var(--border-width));
+    scroll-snap-align: center;
+}
+
+.texture-overlay, #texture {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.mesh-overlay, #mesh {
+    grid-column: 1;
+    grid-row: 4;
+}
+
+.demo-controls {
+    display: grid;
+    grid-template-columns: max-content 1fr max-content;
+    grid-template-rows: min-content min-content;
+    gap: 0px 5px;
+    text-align: center;
+    line-height: 1.4em;
+
+}
+
+.icon {
+    width: 48px;
+    height: 48px;
+    background: steelblue;
+    fill: white;
+    border-radius: 20px;
+    padding: 5px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.disabled {
+    background: grey;
+    cursor: default;
+}
+
+/* radio button groups */
+
+.button-group {
+    border-radius: 4px;
+    padding: 4px;
+    background: #eee;
+}
+
+.button-group input {
+    display: none;
+}
+
+.button-group img {
+    cursor: pointer;
+    border: 0px solid white;
+}
+
+.button-group input:checked + img {
+    border: 2px solid goldenrod;
+}
+
+
+.tooltip {
+    margin: auto;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+.subgrid {
+    grid-column: screen;
+    display: grid;
+    grid-template-columns: inherit;
+    grid-template-rows: inherit;
+    grid-column-gap: inherit;
+    grid-row-gap: inherit;
+}
+
+d-figure.base-grid {
+    grid-column: screen;
+    background: hsl(0, 0%, 97%);
+    padding: 20px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+d-figure {
+    margin-bottom: 1em;
+    position: relative;
+}
+
+d-figure > figure {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.shaded-figure {
+    background-color: hsl(0, 0%, 97%);
+    border-top: 1px solid hsla(0, 0%, 0%, 0.1);
+    border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
+    padding: 30px 0;
+}
+
+.pointer {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    top: 26px;
+    left: -48px;
+}
+
+input[type=range][orient=vertical] {
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* Chromium */
+    width: 8px;
+    height: 175px;
+    padding: 0 5px;
+}
+
+.prompt-square {
+    /*background-image: url('textures/banded.png');*/
+    /*background-position:center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    */
+    /* some weird kludge to allow same width as height */
+    display: block;
+    --border-width: 4px;
+    border-style: solid;
+    box-sizing: border-box;
+    border-width: var(--border-width);
+    border-color: lightgray;
+    width: 100%;
+    /*height: 100%;*/
+    /*height: 0;*/
+    /*padding-right: 0%;*/
+    /*padding-left: 10%;*/
+    text-align: center;
+    font-size: 0.7vw;
+    scroll-snap-align: center;
+}
+
+
+/*.prompt_center {*/
+/*  margin: auto;*/
+/*  width: 60%;*/
+/*  border: 3px solid #73AD21;*/
+/*  padding: 10px;*/
+/*}*/
+#canvas_text {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    /*font-size: x-small;*/
+    /*display: none;*/
+}
+
+#canvas_shading_controls {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    /*display: none;*/
+}
+
+#canvas_vis_mode {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    /*display: none;*/
+}
+
+#canvas_grafting {
+    text-align: right;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    /*display: none;*/
+}
+
+#graft_select {
+    max-width: 115px;
+    /*margin-bottom: 10px;*/
+    /*margin-top: 10px;*/
+}
+
+
+.canvas_container {
+    position: relative;
+}
+
+#texture_hint {
+    grid-column: 1/3;
+    text-align: center;
+}
+
+#graft_hint {
+    grid-column: 1/3;
+    text-align: center;
+}
+
+.option_select {
+    font-size: 15px;
+    text-align: center;
+    /*font-weight: bolder;*/
+
+}
