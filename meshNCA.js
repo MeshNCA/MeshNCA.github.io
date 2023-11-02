@@ -1688,8 +1688,8 @@ export class MeshNCA {
     draw_mesh(time,
               render_config =
                   {
-                      point_light_strength: 0.5,
-                      ambient_light_strength: 0.5,
+                      point_light_strength: 0.35,
+                      ambient_light_strength: 1.0,
                       enable_normal_map: true,
                       enable_ao_map: true,
                       enable_roughness_map: true,
