@@ -156,9 +156,9 @@
       "ambient_light": 1.0,
       "center": true
     },
-    "chair": {
-      "thumbnail": "data/meshes/chair/chair.png",
-      "scale": 1.1,
+    "seashell": {
+      "thumbnail": "data/meshes/seashell/seashell.png",
+      "scale": 1.05,
       "point_light": 1.0,
       "ambient_light": 1.0,
       "center": true
@@ -387,9 +387,9 @@
       "ambient_light": 1.0,
       "center": true
     },
-    "seashell": {
-      "thumbnail": "data/meshes/seashell/seashell.png",
-      "scale": 1.05,
+    "chair": {
+      "thumbnail": "data/meshes/chair/chair.png",
+      "scale": 1.1,
       "point_light": 1.0,
       "ambient_light": 1.0,
       "center": true
