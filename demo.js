@@ -93,8 +93,7 @@ export function createDemo(divId) {
         enable_ao_map: true,
         enable_roughness_map: true,
         enable_grafting: true,
-        point_light_strength: 0.5,
-        ambient_light_strength: 0.5,
+
 
         visMode: 0, // ["color", "albedo", "normal", "height", "roughness", "ao"]
 
@@ -122,7 +121,7 @@ export function createDemo(divId) {
             actual_subdivision_lvl: 2,
             center: true,
 
-            point_light: 1.0,
+            point_light: 0.35,
             ambient_light: 1.0
         },
 
