@@ -75,17 +75,14 @@
   ],
   "texture_names": [
     "Honeycomb_002",
-
     "Stylized_Wood_Tiles_001",
     "Abstract_009",
     "Lava_005",
     "Skin_Lizard_002",
-
     "Pebbles_025",
     "Stylized_Cliff_Rock_001",
     "Coral_001",
     "Crystal_003",
-
     "Sci-fi_Wall_004",
     "Leather_Padded_001",
     "Waffle_001",
@@ -105,7 +102,6 @@
     "Concrete_Blocks_008",
     "Concrete_Blocks_009",
     "Concrete_Blocks_012",
-
     "Coral_002",
     "Sci-Fi_Padded_Fabric_004",
     "Fabric_Padded_007",
@@ -123,7 +119,6 @@
     "Metal_Tiles_002",
     "Paper_Lantern_001",
     "Pavement_Brick_001",
-
     "Pebbles_027",
     "Plastic_Tubes_001",
     "Pumpkin_001",
@@ -152,7 +147,6 @@
     "Wood_Ceiling_001",
     "Wood_Panel_003"
   ],
-
   "object_info": {
     "mug": {
       "thumbnail": "data/meshes/mug/mug.png",
