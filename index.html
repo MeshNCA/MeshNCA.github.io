@@ -71,6 +71,7 @@
 
 
 
+
     </script>
 
 </head>
@@ -488,16 +489,17 @@
                         ways textures form in nature. We propose <b>Mesh</b> <b>N</b>eural <b>C</b>ellular
                         <b>A</b>utomata (<b>MeshNCA</b>), a method for directly synthesizing dynamic textures on 3D
                         meshes without requiring any UV maps.
-                        MeshNCA extends the existing NCA model and enables operating on non-grid-like structures such as
-                        3D meshes. Our MeshNCA model while only being trained on an Icosphere mesh, shows remarkable
-                        generalization and can synthesize textures in real time on any mesh after the training. MeshNCA
-                        allows multi-modal supervision and can be trained using different targets such as images, text
-                        prompts, and motion vector fields. Moreover, we conceptualize a way of grafting trained MeshNCA
-                        instances, enabling texture interpolation. MeshNCA enables real-time 3D texture synthesis on
-                        meshes and allows several user interactions including texture density/orientation control, a
-                        grafting brush, and motion speed/direction control. Finally, we implement the forward pass of
-                        our MeshNCA model using the WebGL shading language and showcase our trained models in an online
-                        interactive demo which is accessible on personal computers and smartphones.
+                        MeshNCA is a generalized type of cellular automata that can operate on a set of cells arranged
+                        on a non-grid structure such as vertices of a 3D mesh.
+                        While only being trained on an Icosphere mesh, MeshNCA shows remarkable generalization and can
+                        synthesize textures on any mesh in real time after the training. Additionally, it accommodates
+                        multi-modal supervision and can be trained using different targets such as images, text prompts,
+                        and motion vector fields. Moreover, we conceptualize a way of grafting trained MeshNCA
+                        instances, enabling texture interpolation. Our MeshNCA model enables real-time 3D texture
+                        synthesis on meshes and allows several user interactions including texture density/orientation
+                        control, a grafting brush, and motion speed/direction control. Finally, we implement the forward
+                        pass of our MeshNCA model using the WebGL shading language and showcase our trained models in an
+                        online interactive demo which is accessible on personal computers and smartphones.
                     </p>
 
                 </div>
