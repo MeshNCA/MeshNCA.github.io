@@ -176,16 +176,16 @@
       "ambient_light": 1.0,
       "center": false
     },
-    "torus": {
-      "thumbnail": "data/meshes/torus/torus.png",
-      "scale": 1.0,
-      "point_light": 1.0,
+    "mobius": {
+      "thumbnail": "data/meshes/mobius/mobius.png",
+      "scale": 0.95,
+      "point_light": 0.9,
       "ambient_light": 1.0,
       "center": true
     },
-    "bunny": {
-      "thumbnail": "data/meshes/bunny/bunny.png",
-      "scale": 1.15,
+    "torus": {
+      "thumbnail": "data/meshes/torus/torus.png",
+      "scale": 1.0,
       "point_light": 1.0,
       "ambient_light": 1.0,
       "center": true
@@ -197,6 +197,14 @@
       "ambient_light": 1.0,
       "center": true
     },
+    "bunny": {
+      "thumbnail": "data/meshes/bunny/bunny.png",
+      "scale": 1.15,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+
     "paimon": {
       "thumbnail": "data/meshes/paimon/paimon.png",
       "scale": 1.2,

@@ -1,5 +1,6 @@
 # Sphere
 
-This object was created using Blender.
-
+This object was created by Ehsan Pajouheshgar using Blender.
 https://www.blender.org/about/license/
+
+)
