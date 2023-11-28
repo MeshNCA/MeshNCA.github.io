@@ -183,9 +183,9 @@
       "ambient_light": 1.0,
       "center": true
     },
-    "torus": {
-      "thumbnail": "data/meshes/torus/torus.png",
-      "scale": 1.0,
+    "fertility": {
+      "thumbnail": "data/meshes/fertility/fertility.png",
+      "scale": 1.15,
       "point_light": 1.0,
       "ambient_light": 1.0,
       "center": true
@@ -278,6 +278,13 @@
     "buddha": {
       "thumbnail": "data/meshes/buddha/buddha.png",
       "scale": 1.05,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
+    "torus": {
+      "thumbnail": "data/meshes/torus/torus.png",
+      "scale": 1.0,
       "point_light": 1.0,
       "ambient_light": 1.0,
       "center": true
