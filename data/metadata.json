@@ -197,6 +197,13 @@
       "ambient_light": 1.0,
       "center": true
     },
+    "dragon": {
+      "thumbnail": "data/meshes/dragon/dragon.png",
+      "scale": 1.0,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": true
+    },
     "bunny": {
       "thumbnail": "data/meshes/bunny/bunny.png",
       "scale": 1.15,
