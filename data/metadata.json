@@ -169,10 +169,10 @@
       "ambient_light": 1.0,
       "center": true
     },
-    "sphere_nonhomogeneous": {
-      "thumbnail": "data/meshes/sphere_nonhomogeneous/sphere_nonhomogeneous.png",
-      "scale": 0.9,
-      "point_light": 0.35,
+    "heptoroid": {
+      "thumbnail": "data/meshes/heptoroid/heptoroid.png",
+      "scale": 1.0,
+      "point_light": 1.0,
       "ambient_light": 1.0,
       "center": false
     },
@@ -211,7 +211,6 @@
       "ambient_light": 1.0,
       "center": true
     },
-
     "paimon": {
       "thumbnail": "data/meshes/paimon/paimon.png",
       "scale": 1.2,
@@ -225,6 +224,13 @@
       "point_light": 1.0,
       "ambient_light": 1.0,
       "center": true
+    },
+    "sphere_nonhomogeneous": {
+      "thumbnail": "data/meshes/sphere_nonhomogeneous/sphere_nonhomogeneous.png",
+      "scale": 0.9,
+      "point_light": 0.35,
+      "ambient_light": 1.0,
+      "center": false
     },
     "springer": {
       "thumbnail": "data/meshes/springer/springer.png",
