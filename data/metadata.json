@@ -169,12 +169,12 @@
       "ambient_light": 1.0,
       "center": true
     },
-    "heptoroid": {
-      "thumbnail": "data/meshes/heptoroid/heptoroid.png",
+    "dragon": {
+      "thumbnail": "data/meshes/dragon/dragon.png",
       "scale": 1.0,
       "point_light": 1.0,
       "ambient_light": 1.0,
-      "center": false
+      "center": true
     },
     "mobius": {
       "thumbnail": "data/meshes/mobius/mobius.png",
@@ -197,12 +197,12 @@
       "ambient_light": 1.0,
       "center": true
     },
-    "dragon": {
-      "thumbnail": "data/meshes/dragon/dragon.png",
+    "cube": {
+      "thumbnail": "data/meshes/cube/cube.png",
       "scale": 1.0,
-      "point_light": 1.0,
+      "point_light": 0.5,
       "ambient_light": 1.0,
-      "center": true
+      "center": false
     },
     "bunny": {
       "thumbnail": "data/meshes/bunny/bunny.png",
@@ -245,6 +245,13 @@
       "point_light": 1.0,
       "ambient_light": 1.0,
       "center": true
+    },
+    "heptoroid": {
+      "thumbnail": "data/meshes/heptoroid/heptoroid.png",
+      "scale": 1.0,
+      "point_light": 1.0,
+      "ambient_light": 1.0,
+      "center": false
     },
     "airplane": {
       "thumbnail": "data/meshes/airplane/airplane.png",
