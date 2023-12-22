@@ -1,4 +1,7 @@
 # Byte-compiled / optimized / DLL files
+#data/create_object_thumbnail.py
+data/space-thumbnails-cli.exe
+
 .idea
 .DS_Store
 __pycache__/

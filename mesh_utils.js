@@ -1,5 +1,5 @@
 export class Mesh {
-    constructor(wavefrontString, gl, scale = 1.0, n_subdivide=0, center=true) {
+    constructor(wavefrontString, gl, scale = 1.0, n_subdivide = 0, center = true) {
         const mesh_obj = Mesh.parseWavefrontObj(wavefrontString);
 
         this.setMeshData(mesh_obj);
@@ -114,7 +114,7 @@ export class Mesh {
 
     }
 
-    normalizeRange(scale = 1.0, center=true) {
+    normalizeRange(scale = 1.0, center = true) {
         let obj_extents = this.getExtents();
         const obj_range = m4.subtractVectors(obj_extents.max, obj_extents.min);
         const obj_center = m4.scaleVector(m4.addVectors(obj_extents.max, obj_extents.min), 0.5);
@@ -228,8 +228,6 @@ export class Mesh {
                     parsedJSON.vertexFaceNormals.push(-dx1 * dy2 + dy1 * dx2);
 
 
-
-
                     parsedJSON.vertexFaceNormalIndices.push(face_counter) // by subtracting 1
                     parsedJSON.vertexFaceNormalIndices.push(face_counter) // by subtracting 1
                     parsedJSON.vertexFaceNormalIndices.push(face_counter) // by subtracting 1
@@ -288,6 +286,7 @@ export class Mesh {
 
         let mesh_max_neighbors = 0;
 
+
         const neighborhoods = {}
         for (let i = 0; i < num_triangles; i++) {
             let idx1 = this.vertexPositionIndices[3 * i];
@@ -315,22 +314,25 @@ export class Mesh {
                 appendIfNotThere(neighborhoods[idx3], idx2);
             }
 
-            mesh_max_neighbors = Math.max(neighborhoods[idx1].length, neighborhoods[idx2].length, neighborhoods[idx3].length)
+            mesh_max_neighbors = Math.max(mesh_max_neighbors, neighborhoods[idx1].length, neighborhoods[idx2].length, neighborhoods[idx3].length)
+
 
         }
 
         this.mesh_max_neighbors = mesh_max_neighbors;
         this.MAX_NEIGHBORS = Math.ceil(this.mesh_max_neighbors / 4) * 4;
-        console.assert(this.MAX_NEIGHBORS <= 20);
-        console.log("Maximum number of neighbors on the mesh: ", mesh_max_neighbors);
-        console.log("Number of Vertices: ", this.vertexPositions.length / 3);
+        // console.assert(this.MAX_NEIGHBORS <= 20);
+
+
+        console.log("Number of Faces/Vertices: ", num_triangles, num_vertices);
         // if (num_neighbors > max_neighbors) {
         //         alert("Max neighborhood assumption is violated");
         // }
 
         const neighborhood_array = [];
 
-
+        let mesh_min_neighbors = 1024;
+        let mesh_mean_neighbors = 0;
         for (let vertex_idx = 0; vertex_idx < num_vertices; ++vertex_idx) {
             let neighbors = neighborhoods[vertex_idx];
             let num_neighbors = neighbors.length;
@@ -340,8 +342,12 @@ export class Mesh {
                 neighborhood_array.push(idx);
             }
 
+            mesh_min_neighbors = Math.min(mesh_min_neighbors, num_neighbors);
+            mesh_mean_neighbors += num_neighbors
+
         }
 
+        console.log("Min/Max/Average valence: ", mesh_min_neighbors, mesh_max_neighbors, mesh_mean_neighbors / num_vertices);
 
         return {neighborhoods, neighborhood_array};
 
