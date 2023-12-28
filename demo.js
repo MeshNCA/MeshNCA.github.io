@@ -456,7 +456,7 @@ export function createDemo(divId) {
 
 
         params.rotationAngle = parseInt($('#rotation').value);
-        $('#rotationLabel').innerHTML = params.rotationAngle + " deg";
+        $('#rotationLabel').innerHTML = params.rotationAngle + "&deg;";
 
 
         $("#texture_img").style.background = "url('" + params.texture_img + "') center";
