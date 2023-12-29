@@ -432,6 +432,12 @@ export function createDemo(divId) {
         params.enable_roughness_map = $('#enable_roughness_map').checked;
         params.enable_grafting = $('#enable_grafting').checked;
 
+        if (!params.enable_grafting) {
+            $('#graft_select').setAttribute('disabled', 'disabled');
+        } else {
+            $('#graft_select').removeAttribute("disabled")
+        }
+
 
         $('#play').style.display = paused ? "inline" : "none";
         $('#pause').style.display = !paused ? "inline" : "none";

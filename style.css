@@ -631,13 +631,14 @@ input[type=range][orient=vertical] {
 
 #canvas_vis_mode {
     position: absolute;
+    text-align: center;
     right: 10px;
     top: 10px;
     /*display: none;*/
 }
 
 #canvas_grafting {
-    text-align: right;
+    text-align: center;
     position: absolute;
     right: 10px;
     bottom: 10px;
@@ -670,4 +671,87 @@ input[type=range][orient=vertical] {
     text-align: center;
     /*font-weight: bolder;*/
 
+}
+
+
+
+/**/
+/*https://alvarotrigo.com/blog/css-checkbox-styles/*/
+@charset "UTF-8";
+.toggler-wrapper {
+  display: block;
+  width: 45px;
+  height: 28px;
+  /*cursor: pointer;*/
+  position: relative;
+}
+
+.toggler-wrapper input[type="checkbox"] {
+  display: none;
+}
+
+.toggler-wrapper input[type="checkbox"]:checked+.toggler-slider {
+  background-color: #cc6844;
+}
+
+.toggler-wrapper .toggler-slider {
+  background-color: #63a22f;
+  position: absolute;
+  border-radius: 100px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+.toggler-wrapper .toggler-knob {
+  position: absolute;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+
+/*Style 19*/
+
+.toggler-wrapper.style-19 input[type="checkbox"]:checked+.toggler-slider {
+  background-color: transparent;
+  border-color: #cc6844;
+}
+
+.toggler-wrapper.style-19 input[type="checkbox"]:checked+.toggler-slider:after {
+  content: 'Graft';
+}
+
+.toggler-wrapper.style-19 input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
+  left: calc(100% - 19px - 3px);
+  background-color: #cc6844;
+}
+
+.toggler-wrapper.style-19 .toggler-slider {
+  background-color: transparent;
+  border-radius: 0;
+  border: 2px solid #63a22f;
+}
+
+.toggler-wrapper.style-19 .toggler-slider:after {
+  content: 'Regen';
+  position: relative;
+  /*top: 50%;*/
+  left: 50px;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  /*font-size: 75%;*/
+  /*text-transform: uppercase;*/
+  /*font-weight: 500;*/
+  /*opacity: 0.7;*/
+}
+
+.toggler-wrapper.style-19 .toggler-knob {
+  width: calc(25px - 6px);
+  height: calc(25px - 6px);
+  left: 3px;
+  top: 3px;
+  background-color: #63a22f;
 }
