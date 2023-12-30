@@ -679,11 +679,11 @@ input[type=range][orient=vertical] {
 /*https://alvarotrigo.com/blog/css-checkbox-styles/*/
 @charset "UTF-8";
 .toggler-wrapper {
-  display: block;
+  /*display: block;*/
   width: 45px;
   height: 28px;
   /*cursor: pointer;*/
-  position: relative;
+  position: absolute;
 }
 
 .toggler-wrapper input[type="checkbox"] {
@@ -699,7 +699,7 @@ input[type=range][orient=vertical] {
   position: absolute;
   border-radius: 100px;
   top: 0;
-  left: 0;
+  left: 4px;
   width: 100%;
   height: 100%;
   -webkit-transition: all 300ms ease;
@@ -736,13 +736,13 @@ input[type=range][orient=vertical] {
 }
 
 .toggler-wrapper.style-19 .toggler-slider:after {
-  content: 'Regen';
+  content: 'Regenerate';
   position: relative;
-  /*top: 50%;*/
-  left: 50px;
+  top: -2px;
+  left: 47px;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
-  /*font-size: 75%;*/
+  font-size: 80%;
   /*text-transform: uppercase;*/
   /*font-weight: 500;*/
   /*opacity: 0.7;*/

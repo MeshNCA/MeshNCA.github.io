@@ -77,6 +77,11 @@
 
 
 
+
+
+
+
+
     </script>
 
 </head>
@@ -292,18 +297,25 @@
                         </div>
 
                         <div id="canvas_grafting">
-<!--                            <input type="checkbox"  checked="checked"> Enable Grafting</br>-->
-                            <b>Brush Type</b>
-                            <label class="toggler-wrapper style-19">
-                                <input type="checkbox" id="enable_grafting" checked="checked">
-                                <div class="toggler-slider">
-                                    <div class="toggler-knob"></div>
-                                </div>
+                            <!--                            <input type="checkbox"  checked="checked"> Enable Grafting</br>-->
+                            <label>
+                                <img id="screenshot" src="images/screenshot.png" width="44px" height="44"/>
                             </label>
-<!--                            <center><b>Graft</b></center>-->
-                            <select name="Grafting Texture" id="graft_select" class="option_select">
-                            </select>
 
+                            <label>
+                                <img title="Lock/Unlock camera" id="camera_toggle" src="images/camera_locked.png"
+                                     width="50px" height="50px"/>
+                            </label>
+
+
+                            <br>
+                            <svg class="icon" id="zoomOut">
+                                <use xlink:href="#zoomOutIcon"></use>
+                            </svg>
+
+                            <svg class="icon" id="zoomIn">
+                                <use xlink:href="#zoomInIcon"></use>
+                            </svg>
 
 
                         </div>
@@ -333,49 +345,29 @@
                                 id="speedLabel"></label>
                         </div>
 
-                        <div style="text-align: right;">
-                            <label>
-                                <img id="screenshot" src="images/screenshot.png" width="56px" height="56"/>
+                        <div style="text-align: left; background: #eee;">
+                            <b>&nbsp; Brush &nbsp;</b>
+
+                            <select name="Grafting Texture" id="graft_select" class="option_select"></select>
+                            <br>
+
+
+                            <b>&nbsp; Mode &nbsp;</b>
+                            <label class="toggler-wrapper style-19">
+
+                                <input type="checkbox" id="enable_grafting" checked="checked">
+                                <div class="toggler-slider">
+                                    <div class="toggler-knob"></div>
+                                </div>
+
+
                             </label>
 
 
-                            <label>
-                                <img title="Lock/Unlock camera" id="camera_toggle" src="images/camera_locked.png"
-                                     width="64px" height="64px"/>
-                            </label>
-
-                            <svg class="icon" id="zoomIn">
-                                <use xlink:href="#zoomInIcon"></use>
-                            </svg>
-                            <svg class="icon" id="zoomOut">
-                                <use xlink:href="#zoomOutIcon"></use>
-                            </svg>
-                        </div>
-                        <div id='brushSelect' class="button-group">
-                            <label>
-                                <input type="radio" name="brush"><img
-                                    src="images/brush_S.png" width="64px" height="64px"/>
-                            </label>
-                            <label>
-                                <input type="radio" name="brush"><img src="images/brush_M.png" width="64px"
-                                                                      height="64px"/>
-                            </label>
-                            <label>
-                                <input type="radio" name="brush" checked="checked"><img
-                                    src="images/brush_L.png" width="64px" height="64px"/>
-                            </label>
-                            <br> Brush Size <br>
-
+                            <!--                            <center><b>Graft</b></center>-->
 
                         </div>
 
-
-                        <div>
-                            <input type="range" id="rotation" min="0" max="360" step="1" value="0"></br>Orientation:
-                            <label id="rotationLabel"></label><br>
-                            <input type="range" id="bumpiness" min="-10" max="10" step="1" value="3"></br>Bumpiness:
-                            <label id="bumpinessLabel"></label>
-                        </div>
                         <div id='subdivisionSelect' class="button-group">
                             <label>
                                 <input type="radio" name="config"><img
@@ -395,6 +387,33 @@
                             </label>
                             <br>Subdivision Level
                         </div>
+
+
+                        <div>
+                            <input type="range" id="rotation" min="0" max="360" step="1" value="0"></br>Orientation:
+                            <label id="rotationLabel"></label><br>
+                            <input type="range" id="bumpiness" min="-10" max="10" step="1" value="3"></br>Bumpiness:
+                            <label id="bumpinessLabel"></label>
+                        </div>
+
+                        <div id='brushSelect' class="button-group">
+                            <label>
+                                <input type="radio" name="brush"><img
+                                    src="images/brush_S.png" width="64px" height="64px"/>
+                            </label>
+                            <label>
+                                <input type="radio" name="brush"><img src="images/brush_M.png" width="64px"
+                                                                      height="64px"/>
+                            </label>
+                            <label>
+                                <input type="radio" name="brush" checked="checked"><img
+                                    src="images/brush_L.png" width="64px" height="64px"/>
+                            </label>
+                            <br> Brush Size <br>
+
+
+                        </div>
+
 
                         <!--                        <div id='alignSelect'>-->
                         <!--                            <label>-->
