@@ -459,6 +459,8 @@ const render_vs_code = `
 `;
 
 const render_fs_code = `
+    // Some code segments from https://learnopengl.com/PBR/Lighting by Joey de Vries
+    // licensed under CC BY-NC 4.0 license as published by Creative Commons
     precision highp float;
     const float INV_4PI2 = 0.02533029591;
     const float INV_PI = 0.31830988618;
@@ -836,27 +838,7 @@ const NCA_PROGRAMS = {
       setOutput(result);
     }`,
 
-    mesh_init: `
-    
-    uniform float u_numVertices;
 
-    
-    uniform sampler2D u_positions;
-    uniform vec2 u_positionsSize;
-
-    
-    // setup the position buffer
-    
-    void main() {
-        float vertexIdx = getOutputVertexIdx(u_positionsSize);
-        vec2 ptc = texCoordFromIndex(vertexIdx, u_positionsSize);
-        vec3 position = texture2D(u_positions, ptc).rgb;
-        
-        setOutput(vec4(position, 0.0));
-    }
-    
-    
-    `,
     mesh_state_update: `
     ${defInput('u_update')}
     
@@ -1394,7 +1376,6 @@ export class MeshNCA {
             graftWeights: createTensor(gl, width, height, 4, true),
             NewgraftWeights: createTensor(gl, width, height, 4, true),
 
-            meshVertexPos: createTensor(gl, width, height, 3, true),
             meshState: createTensor(gl, width, height, channel_n, true),
             meshNewState: createTensor(gl, width, height, channel_n, true),
             meshPerception: createTensor(gl, width, updateH, perception_n, true),
@@ -1433,7 +1414,6 @@ export class MeshNCA {
 
             this.runLayer(this.nca_progs.mesh_perception, this.buf.meshPerception, {
                 u_input: this.buf.meshState,
-                u_vertexPos: this.buf.meshVertexPos,
                 u_seed: seed,
                 u_updateProbability: this.updateProbability,
 
@@ -1493,17 +1473,6 @@ export class MeshNCA {
             }
 
             this.runLayer(this.nca_progs.mesh_state_update, this.buf.meshNewState, input_dict);
-
-            // this.runLayer(this.nca_progs.mesh_pos_update, this.buf.meshNewVertexPos, {
-            //     u_input: this.buf.meshVertexPos, u_update: mesh_inputBuf,
-            //     u_unshuffleTex: this.unshuffleTex,
-            //     u_seed: seed, u_updateProbability: this.updateProbability,
-            //
-            //     u_normals: this.meshAttributeTextures.normals,
-            //     u_normalsSize: [this.normals_texture_width, this.normals_texture_height],
-            //
-            //     u_numVertices: this.mesh.numVertices,
-            // });
 
         }
 
@@ -1627,14 +1596,6 @@ export class MeshNCA {
         });
     }
 
-    initVertexPosition() {
-        this.runLayer(this.nca_progs.mesh_init, this.buf.meshVertexPos, {
-            u_positions: this.meshAttributeTextures.positions,
-            u_positionsSize: [this.meshAttributes.positions.width, this.meshAttributes.positions.height],
-            u_numVertices: this.mesh.numVertices,
-        });
-    }
-
     setWeights(models) {
         const gl = this.gl;
         this.layers.forEach(layer => gl.deleteTexture(layer));
@@ -1754,7 +1715,6 @@ export class MeshNCA {
         setTensorUniforms(sharedUniforms, 'u_graft', this.buf.graftWeights);
 
 
-
         gl.useProgram(this.render_progs.program);
         twgl.setUniforms(this.render_progs, sharedUniforms);
         // alert(Object.keys(bufferInfo))
@@ -1765,7 +1725,6 @@ export class MeshNCA {
 
         // calls gl.uniform
         twgl.setBuffersAndAttributes(gl, this.render_progs, this.meshBufferInfo);
-
 
 
         twgl.drawBufferInfo(gl, this.meshBufferInfo);

@@ -1728,30 +1728,27 @@ a.box:active {
     }
 }
 
-
-
-
 @media screen and (max-width: 1215px) {
     .container.is-widescreen:not(.is-max-desktop) {
-        width: 1100px
+        width: 1152px
     }
 }
 
 @media screen and (max-width: 1407px) {
     .container.is-fullhd:not(.is-max-desktop):not(.is-max-widescreen) {
-        width: 1100px
+        width: 1344px
     }
 }
 
 @media screen and (min-width: 1216px) {
     .container:not(.is-max-desktop) {
-        width: 1100px
+        width: 1152px
     }
 }
 
 @media screen and (min-width: 1408px) {
     .container:not(.is-max-desktop):not(.is-max-widescreen) {
-        width: 1100px
+        width: 1344px
     }
 }
 
@@ -11445,7 +11442,7 @@ a.has-text-danger-dark:focus, a.has-text-danger-dark:hover {
 .hero-body {
     flex-grow: 1;
     flex-shrink: 0;
-    padding: 3rem 0rem;
+    padding: 3rem 1.5rem
 }
 
 .section {
