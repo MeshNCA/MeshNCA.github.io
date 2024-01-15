@@ -32,6 +32,7 @@
     touch-action: none;
     cursor: default;
     width: 100%;
+    /*aspect-ratio: auto;*/
     /*background: red;*/
 }
 
@@ -407,7 +408,7 @@ input[type="radio"] {
     }
 
     #texhint {
-        height: 135px;
+        height: 250px;
     }
 
     #texture_img {
@@ -656,7 +657,8 @@ input[type=range][orient=vertical] {
 
 .canvas_container {
     position: relative;
-    width:100%;
+    /*aspect-ratio: auto;*/
+    /*width:auto;*/
 }
 
 #texture_hint {

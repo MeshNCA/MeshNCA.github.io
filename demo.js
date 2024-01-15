@@ -617,6 +617,7 @@ export function createDemo(divId) {
                     canvas.style.cursor = "grabbing";
                 } else if (params.enable_grafting) {
                     canvas.style.cursor = 'pointer';
+                    // canvas.style.cursor = "url('images/brush.png') 16 16, auto;";
                 }
 
                 click(getMousePos(e), e, true);
