@@ -473,7 +473,7 @@ input[type="radio"] {
 
 }
 
-.icon {
+.demo-icon {
     width: 48px;
     height: 48px;
     background: steelblue;
@@ -483,6 +483,7 @@ input[type="radio"] {
     margin: 2px;
     cursor: pointer;
 }
+
 
 .disabled {
     background: grey;
