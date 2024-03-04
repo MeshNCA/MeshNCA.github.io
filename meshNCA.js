@@ -848,6 +848,7 @@ const NCA_PROGRAMS = {
     uniform bool u_enable_graft;
     
     uniform float u_seed, u_updateProbability;
+    uniform float u_rate;
 
     varying vec2 uv;
     
@@ -900,6 +901,8 @@ const NCA_PROGRAMS = {
       #endif
       
       vec4 new_state;
+      update = update * u_rate;
+      graft_update = graft_update * u_rate;
       if (enable_grafting) {
         new_state = state + mix(update, graft_update, graft_weight);
       } else {
@@ -935,6 +938,7 @@ const NCA_PROGRAMS = {
     // uniform float u_angle;
     
     uniform float u_seed, u_updateProbability;
+    uniform float u_scale;
 
     vec4 getNeighbors(const float index, const float offset) {
         float scaled_index = index * Q + offset + 0.5; // Add 0.5 to make mod() and floor() more robust
@@ -1020,6 +1024,8 @@ const NCA_PROGRAMS = {
 
             }
             // res = res * RSH1_LAP;
+            res = res / (u_scale * u_scale);
+            
             setOutput(res);
         }
 
@@ -1064,6 +1070,7 @@ const NCA_PROGRAMS = {
             }
             // res += vec4(center_pos, 1.0);
             // res /= (1.0 + float(num_neighbors));
+            res = res / u_scale;
             setOutput(res);
             
         } else {
@@ -1218,6 +1225,9 @@ export class MeshNCA {
         this.arrowsCoef = 0.0;
         this.visMode = 'color';
         this.hardClamp = false;
+
+        this.rate = 1.0;
+        this.scale = 1.0;
 
         this.our_version = our_version;
         this.mesh = mesh;
@@ -1429,6 +1439,7 @@ export class MeshNCA {
 
                 u_numVertices: this.mesh.numVertices,
                 u_angle: this.rotationAngle / 180.0 * Math.PI,
+                u_scale: this.scale,
             });
 
 
@@ -1465,6 +1476,8 @@ export class MeshNCA {
                 u_numVertices: this.mesh.numVertices,
 
                 u_enable_graft: this.enable_grafting,
+
+                u_rate: this.rate,
             }
 
             if (this.enable_grafting) {

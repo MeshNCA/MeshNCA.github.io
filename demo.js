@@ -14,7 +14,7 @@ export function createDemo(divId) {
     const $ = q => root.querySelector(q);
     const $$ = q => root.querySelectorAll(q);
 
-    const speed_sets = [1, 2, 4, 8, 16];
+    const speed_sets = [1, 2, 4, 8, 256];
     let W = 512;
     // W = Math.min(W, window.screen.width);
     let H = W;
@@ -134,6 +134,10 @@ export function createDemo(divId) {
 
         zNear: init_zNear,
         zFar: init_zFar,
+
+
+        rate: 1.0,
+        scale: 1.0,
 
     };
 
@@ -464,6 +468,15 @@ export function createDemo(divId) {
         params.rotationAngle = parseInt($('#rotation').value);
         $('#rotationLabel').innerHTML = params.rotationAngle + "&deg;";
 
+        params.scale = parseFloat($('#scale').value);
+        params.scale = Math.pow(2.0, -params.scale);
+        $('#scaleLabel').innerHTML = params.scale.toFixed(2);
+
+        params.rate = parseFloat($('#rate').value);
+        params.rate = Math.min(params.rate, (params.scale * params.scale))
+        $('#rate').value = params.rate;
+        $('#rateLabel').innerHTML = params.rate.toFixed(2);
+
 
         $("#texture_img").style.background = "url('" + params.texture_img + "') center";
         $("#texture_img").style.backgroundSize = "100%100%";
@@ -587,6 +600,12 @@ export function createDemo(divId) {
         $('#rotation').oninput = updateUI;
         $('#bumpiness').onchange = updateUI;
         $('#bumpiness').oninput = updateUI;
+
+        $('#rate').onchange = updateUI;
+        $('#rate').oninput = updateUI;
+
+        $('#scale').onchange = updateUI;
+        $('#scale').oninput = updateUI;
 
         $('#enable_ao_map').onchange = updateUI;
         $('#enable_normal_map').onchange = updateUI;
@@ -742,6 +761,9 @@ export function createDemo(divId) {
         ca.bumpiness = params.bumpiness;
         ca.hardClamp = params.hardClamp;
 
+        ca.rate = params.rate;
+        ca.scale = params.scale;
+
         ca.cameraPosition = params.cameraPosition;
         ca.cameraTarget = params.cameraTarget;
         ca.camera_radius = params.camera_radius;
@@ -825,6 +847,8 @@ export function createDemo(divId) {
         ca.bumpiness = params.bumpiness;
         ca.hardClamp = params.hardClamp;
 
+        ca.rate = params.rate;
+        ca.scale = params.scale;
 
         ca.camera.cameraPosition = params.cameraPosition;
         ca.camera.cameraTarget = params.cameraTarget;
