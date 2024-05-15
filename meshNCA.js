@@ -57,6 +57,7 @@ const COMMON_PREFIX = `
     precision highp float;
     precision highp sampler2D;
     precision highp int;
+    // precision highp mat3;
     
     
 
@@ -287,6 +288,26 @@ const NCA_PREFIX = `
         );
     
     
+    }
+    
+    mat3 myTranspose(mat3 m) {
+        return mat3(m[0][0], m[1][0], m[2][0],
+                    m[0][1], m[1][1], m[2][1],
+                    m[0][2], m[1][2], m[2][2]);
+    
+    }
+    
+    mat3 myInverse(mat3 m) {
+        float a00 = m[0][0], a01 = m[0][1], a02 = m[0][2];
+        float a10 = m[1][0], a11 = m[1][1], a12 = m[1][2];
+        float a20 = m[2][0], a21 = m[2][1], a22 = m[2][2];
+        float b01 = a22 * a11 - a12 * a21;
+        float b11 = -a22 * a10 + a12 * a20;
+        float b21 = a21 * a10 - a11 * a20;
+        float det = a00 * b01 + a01 * b11 + a02 * b21;
+        return mat3(b01, (-a22 * a01 + a02 * a21), (a12 * a01 - a02 * a11),
+                    b11, (a22 * a00 - a02 * a20), (-a12 * a00 + a02 * a10),
+                    b21, (-a21 * a00 + a01 * a20), (a11 * a00 - a01 * a10)) / det;
     }
     
 
@@ -932,6 +953,9 @@ const NCA_PROGRAMS = {
     uniform sampler2D u_positions;
     uniform vec2 u_positionsSize;
     
+    uniform sampler2D u_kernels;
+    uniform vec2 u_kernelsSize;
+    
     uniform sampler2D u_normals;
     uniform vec2 u_normalsSize;
     
@@ -975,6 +999,7 @@ const NCA_PROGRAMS = {
         int num_neighbors = 0;    
         vec4 last_neighbors;
         
+        vec3 average_neighbor_pos = vec3(0.0);
         for (int j = 0; j < MAX_NEIGHBORS; j+=1) {
             if (integerModulo(j, 4) == 0)  {
                 float offset = floor((float(j) + 0.5) / 4.0); // without 0.1 it doesn't work. Invesitage why.
@@ -986,8 +1011,13 @@ const NCA_PROGRAMS = {
             }  else {
                 neighbor_indices[j] = neighbor_idx;
                 num_neighbors += 1;
+                
+                average_neighbor_pos += texture2D(u_positions, texCoordFromIndex(neighbor_idx, u_positionsSize)).xyz;
             }
         }
+        average_neighbor_pos = average_neighbor_pos / float(num_neighbors);
+        
+        
         
         // setOutput(vec4(float(num_neighbors == 5)));
         // return;
@@ -1003,16 +1033,9 @@ const NCA_PROGRAMS = {
         float filterBand = floor((ch+0.5) / channels_per_filter);
         // inputCh: this is the channel idx in the original tensor
         float inputCh = ch - filterBand * channels_per_filter; 
-        
-        
-        // setOutput(u_input_read(xy, inputCh));
-        // vec3 center_pos = texture2D(u_positions, texCoordFromIndex(vertexIdx, u_positionsSize)).xyz;
-        // setOutput(vec4(vertexIdx / u_numVertices));
-        // setOutput(vec4(center_pos, 1.0));
-        // return;
-        //        
 
-        if (filterBand < 0.5) {
+        float initial_band = 0.5;
+        if (filterBand < initial_band) {
             // Laplacian
             vec4 res = -u_input_index_read(vertexIdx, inputCh) * float(num_neighbors);
             for (int j = 0; j < MAX_NEIGHBORS; j+=1) {
@@ -1025,11 +1048,11 @@ const NCA_PROGRAMS = {
             }
             // res = res * RSH1_LAP;
             res = res / (u_scale * u_scale);
-            
+            res = res * 6.0 / float(num_neighbors);
             setOutput(res);
         }
 
-        else if (filterBand < 3.5) {
+        else if (filterBand < initial_band + 3.0) {
             //Spherical Harmonics
             vec4 res = vec4(0.0);
             vec4 center_feature = u_input_index_read(vertexIdx, inputCh);
@@ -1037,6 +1060,25 @@ const NCA_PROGRAMS = {
             // vec3 center_pos = u_vertexPos_index_read(vertexIdx, 0.0).xyz;
             vec3 surface_normal = texture2D(u_normals, texCoordFromIndex(vertexIdx, u_normalsSize)).xyz;
             mat3 rotation_matrix = rotateU(surface_normal, u_angle);
+            
+            vec3 vertex_kernel_row1 = texture2D(u_kernels, texCoordFromIndex(vertexIdx * 3.0, u_kernelsSize)).xyz;
+            vec3 vertex_kernel_row2 = texture2D(u_kernels, texCoordFromIndex(vertexIdx * 3.0 + 1.0, u_kernelsSize)).xyz;
+            vec3 vertex_kernel_row3 = texture2D(u_kernels, texCoordFromIndex(vertexIdx * 3.0 + 2.0, u_kernelsSize)).xyz;
+            
+            float gamma = 0.01;
+            
+            // mat3 vertex_kernel = mat3(
+            //                     vertex_kernel_row1 + vec3(1.0, 0.0, 0.0) * gamma,
+            //                     vertex_kernel_row2 + vec3(0.0, 1.0, 0.0) * gamma,
+            //                     vertex_kernel_row3 + vec3(0.0, 0.0, 1.0) * gamma);
+                                
+            mat3 vertex_kernel = mat3(vertex_kernel_row1, vertex_kernel_row2, vertex_kernel_row3);
+            
+            
+            mat3 kernel = myTranspose(rotation_matrix) * vertex_kernel;
+            // mat3 kernel = myTranspose(rotation_matrix) * myInverse(vertex_kernel);
+            // myTranspose(rotation_matrix);
+            
             for (int j = 0; j < MAX_NEIGHBORS; j+=1) {
                 if (j >= num_neighbors) {
                     break;
@@ -1046,16 +1088,21 @@ const NCA_PROGRAMS = {
                 // vec3 neighbor_pos = u_vertexPos_index_read(neighbor_index, 0.0).xyz;
                 // direction = rotateZ(u_angle) * direction;
                 
+                vec3 direction = neighbor_pos - center_pos;
                 
-                vec3 direction =  rotation_matrix * normalize(neighbor_pos - center_pos);
-                direction = getCellDirection(center_pos, direction);
+                // direction = kernel * rotation_matrix * normalize(direction);
+                // direction = myInverse(vertex_kernel) * normalize(direction);
+                direction =  rotation_matrix * normalize(direction);
+
+                // vec3 direction =  rotation_matrix * normalize(neighbor_pos - average_neighbor_pos);
+                // direction = getCellDirection(center_pos, direction);
                 
                 
                 
                 float coeff;
-                if (filterBand < 1.5) {
+                if (filterBand < initial_band + 1.0) {
                     coeff = direction.y;
-                } else if (filterBand < 2.5) {
+                } else if (filterBand < initial_band + 2.0) {
                     coeff = direction.z;
                 } else {
                     coeff = direction.x;
@@ -1071,10 +1118,11 @@ const NCA_PROGRAMS = {
             // res += vec4(center_pos, 1.0);
             // res /= (1.0 + float(num_neighbors));
             res = res / u_scale;
+            res = res * 6.0 / float(num_neighbors);
             setOutput(res);
             
         } else {
-            // Identity
+            // Identityanywa
             
             // setOutput(u_input_read(xy, inputCh));
             setOutput(u_input_index_read(vertexIdx, inputCh));
@@ -1432,6 +1480,9 @@ export class MeshNCA {
 
                 u_positions: this.meshAttributeTextures.positions,
                 u_positionsSize: [this.meshAttributes.positions.width, this.meshAttributes.positions.height],
+
+                u_kernels: this.meshAttributeTextures.vertex_kernels,
+                u_kernelsSize: [this.meshAttributes.vertex_kernels.width, this.meshAttributes.vertex_kernels.height],
 
                 u_normals: this.meshAttributeTextures.normals,
                 u_normalsSize: [this.meshAttributes.normals.width, this.meshAttributes.normals.height],

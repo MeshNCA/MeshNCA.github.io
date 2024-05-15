@@ -377,6 +377,56 @@ export class Mesh {
         return {min, max, mean, max_norm};
     }
 
+    calculateVertexKernels(neighborhoods) {
+        // 3x3 kernel for each vertex
+        const num_vertices = this.vertexPositions.length / 3;
+        const vertex_kernels = new Array(num_vertices * 9).fill(0.0);
+
+        for (let vertex_idx = 0; vertex_idx < num_vertices; ++vertex_idx) {
+            let neighbors = neighborhoods[vertex_idx];
+            let num_neighbors = neighbors.length;
+            let [x_center, y_center, z_center] = this.vertexPositions.slice(vertex_idx * 3, vertex_idx * 3 + 3);
+            for (let i = 0; i < num_neighbors; ++i) {
+                let neighbor_idx = neighbors[i];
+                let [x_neighbor, y_neighbor, z_neighbor] = this.vertexPositions.slice(neighbor_idx * 3, neighbor_idx * 3 + 3);
+                let [dx, dy, dz] = [x_neighbor - x_center, y_neighbor - y_center, z_neighbor - z_center];
+                let norm = Math.sqrt(dx * dx + dy * dy + dz * dz);
+                [dx, dy, dz] = [dx / norm, dy / norm, dz / norm];
+                vertex_kernels[vertex_idx * 9] += dx * dx;
+                vertex_kernels[vertex_idx * 9 + 1] += dx * dy;
+                vertex_kernels[vertex_idx * 9 + 2] += dx * dz;
+                vertex_kernels[vertex_idx * 9 + 3] += dy * dx;
+                vertex_kernels[vertex_idx * 9 + 4] += dy * dy;
+                vertex_kernels[vertex_idx * 9 + 5] += dy * dz;
+                vertex_kernels[vertex_idx * 9 + 6] += dz * dx;
+                vertex_kernels[vertex_idx * 9 + 7] += dz * dy;
+                vertex_kernels[vertex_idx * 9 + 8] += dz * dz;
+
+            }
+            let [a00, a01, a02, a10, a11, a12, a20, a21, a22] = vertex_kernels.slice(vertex_idx * 9, vertex_idx * 9 + 9);
+            let gamma = 0.01
+            a00 += gamma;
+            a11 += gamma;
+            a22 += gamma;
+            let det = a00 * a11 * a22 + a01 * a12 * a20 + a02 * a10 * a21 - a02 * a11 * a20 - a01 * a10 * a22 - a00 * a12 * a21;
+            let [b01, b11, b21] = [a11 * a22 - a12 * a21, a12 * a20 - a10 * a22, a10 * a21 - a11 * a20];
+            vertex_kernels[vertex_idx * 9] = b01 / det;
+            vertex_kernels[vertex_idx * 9 + 1] = (-a22 * a01 + a02 * a21) / det;
+            vertex_kernels[vertex_idx * 9 + 2] = (a12 * a01 - a02 * a11) / det;
+            vertex_kernels[vertex_idx * 9 + 3] = b11 / det;
+            vertex_kernels[vertex_idx * 9 + 4] = (a22 * a00 - a02 * a20) / det;
+            vertex_kernels[vertex_idx * 9 + 5] = (-a12 * a00 + a02 * a10) / det;
+            vertex_kernels[vertex_idx * 9 + 6] = b21 / det;
+            vertex_kernels[vertex_idx * 9 + 7] = (-a21 * a00 + a01 * a20) / det;
+            vertex_kernels[vertex_idx * 9 + 8] = (a11 * a00 - a01 * a10) / det; // Inverse of the 3x3 kernel
+
+        }
+
+        // alert(vertex_kernels.slice(27, 36));
+        return vertex_kernels
+
+    }
+
     getAttributeTextures(gl) {
         const meshAttributeTextures = {};
         let constant = -1;
@@ -388,12 +438,35 @@ export class Mesh {
 
         const neighborhood_information = this.extractNeighborhoods();
 
+        const vertex_kernel_array = this.calculateVertexKernels(neighborhood_information.neighborhoods);
+        const kernel_len = vertex_kernel_array.length / 3.0;
+        const kernel_texture_width = Math.ceil(Math.sqrt(kernel_len));
+        const kernel_texture_height = Math.ceil(kernel_len / kernel_texture_width);
+        let padding = kernel_texture_width * kernel_texture_height - kernel_len;
+        for (let i = 0; i < padding; i++) {
+            vertex_kernel_array.push(constant);
+            vertex_kernel_array.push(constant);
+            vertex_kernel_array.push(constant);
+        }
+
+        meshAttributeTextures.vertex_kernels = {
+            format: gl.RGB,
+            internalFormat: gl.RGB32F,
+            type: gl.FLOAT,
+            width: kernel_texture_width,
+            height: kernel_texture_height,
+            src: vertex_kernel_array,
+            minMag: gl.NEAREST,
+            wrap: gl.CLAMP_TO_EDGE,
+            flipY: false,
+        };
+
 
         let neighborhood_array = neighborhood_information.neighborhood_array;
         const neighborhood_len = this.numVertices * this.MAX_NEIGHBORS / 4; // We store it as RGBA
         const neighborhood_texture_width = Math.ceil(Math.sqrt(neighborhood_len));
         const neighborhood_texture_height = Math.ceil(neighborhood_len / neighborhood_texture_width);
-        let padding = neighborhood_texture_width * neighborhood_texture_height - neighborhood_len;
+        padding = neighborhood_texture_width * neighborhood_texture_height - neighborhood_len;
         for (let i = 0; i < padding; i++) {
             neighborhood_array.push(constant);
             neighborhood_array.push(constant);

@@ -194,7 +194,8 @@ export function createDemo(divId) {
             params.texture_name = texture_names[idx];
             params.texture_img = "images/target_textures/" + texture_names[idx] + "/albedo.png"
 
-            params.modelSet = "data/models.json";
+            // params.modelSet = "data/models.json";
+            params.modelSet = "data/models2.json";
 
             // if (params.model_type === "large") {
             //     params.modelSet = ("data/image_target/large/16_128_Image_new_"
