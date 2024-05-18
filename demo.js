@@ -151,6 +151,26 @@ export function createDemo(divId) {
 
     let last_cursor_style = "default";
 
+    var videoStream = canvas.captureStream(30);
+    var mediaRecorder = new MediaRecorder(videoStream);
+    var chunks = [];
+
+    mediaRecorder.ondataavailable = function (e) {
+        chunks.push(e.data);
+    }
+
+    mediaRecorder.onstop = function (e) {
+        var blob = new Blob(chunks, {'type': 'video/mp4'});
+        chunks = [];
+        var videoURL = URL.createObjectURL(blob);
+        var link = document.createElement("a");
+        link.download = params.object_info.name + "-" + params.texture_name;
+        link.href = videoURL;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
     initMetaData();
 
     async function initMetaData(load_meta_data = true) {
@@ -534,6 +554,11 @@ export function createDemo(divId) {
 
         $('#screenshot').onclick = () => {
             Screenshot();
+
+            mediaRecorder.start();
+            setTimeout(function () {
+                mediaRecorder.stop();
+            }, 10000);
         };
 
 
@@ -771,6 +796,7 @@ export function createDemo(divId) {
 
     let first_draw = true;
 
+
     function render(time) {
         const targetSPS = params.object_info.actual_subdivision_lvl <= 2 ? 4 : 2.0;
         // twgl.resizeCanvasToDisplaySize(gl.canvas);
@@ -880,4 +906,6 @@ export function createDemo(divId) {
         requestAnimationFrame(render);
 
     }
+
+
 }
