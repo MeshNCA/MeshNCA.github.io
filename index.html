@@ -57,46 +57,7 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>
     <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 
 
     </script>
@@ -447,21 +408,22 @@
                         <div id="canvas_grafting">
                             <!--                            <input type="checkbox"  checked="checked"> Enable Grafting</br>-->
                             <label>
-                                <img id="screenshot" src="images/screenshot.png" width="44px" height="44"/>
+                                <img id="screenshot" src="images/screenshot.png" width="44px" height="44"
+                                     style="margin-left:10px;"/>
                             </label>
 
                             <label>
                                 <img title="Lock/Unlock camera" id="camera_toggle" src="images/camera_locked.png"
-                                     width="50px" height="50px"/>
+                                     width="50px" height="50px" style="margin-left:10px;"/>
                             </label>
 
 
                             <br>
-                            <svg class="demo-icon" id="zoomOut">
+                            <svg class="demo-icon-canvas" id="zoomOut">
                                 <use xlink:href="#zoomOutIcon"></use>
                             </svg>
 
-                            <svg class="demo-icon" id="zoomIn">
+                            <svg class="demo-icon-canvas" id="zoomIn">
                                 <use xlink:href="#zoomInIcon"></use>
                             </svg>
 
@@ -477,20 +439,22 @@
 
                                                 <svg class="demo-icon" id="play" style="display: none;"><use
                                                         xlink:href="#playIcon"></use></svg>
-                                                <svg class="demo-icon" id="pause" ><use
+                                                <svg class="demo-icon" id="pause"><use
                                                         href="#pauseIcon"></use></svg>
                     </span>
                             <svg class="demo-icon" id="reset">
                                 <use href="#resetIcon"></use>
                             </svg>
 
-<!--                            <label>-->
-<!--                                <img id="benchmark" src="images/benchmark.png" width="72px" height="72px"/>-->
-<!--                            </label>-->
+                            <!--                            <label>-->
+                            <!--                                <img id="benchmark" src="images/benchmark.png" width="72px" height="72px"/>-->
+                            <!--                            </label>-->
 
                             <span id="record">
-                                <img id="record_off" src="images/record_off.png" width="64px" height="64px" style="padding: 5px; padding-bottom: 12px"/>
-                                <img id="record_on" src="images/record_on.png" width="64px" height="64px" style="padding: 5px; padding-bottom: 12px; display: none;"/>
+                                <img id="record_off" src="images/record_off.png" width="64px" height="64px"
+                                     style="padding: 5px; padding-bottom: 12px"/>
+                                <img id="record_on" src="images/record_on.png" width="64px" height="64px"
+                                     style="padding: 5px; padding-bottom: 12px; display: none;"/>
                             </span>
                         </div>
                         <div class="speed">
@@ -613,7 +577,6 @@
 
                     </div>
                 </div>
-
 
 
                 <div id="pattern-controls">

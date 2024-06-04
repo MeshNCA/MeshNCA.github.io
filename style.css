@@ -484,6 +484,17 @@ input[type="radio"] {
     cursor: pointer;
 }
 
+.demo-icon-canvas {
+    width: 48px;
+    height: 48px;
+    background: steelblue;
+    fill: white;
+    border-radius: 20px;
+    padding: 5px;
+    margin: 2px;
+    cursor: pointer;
+}
+
 
 .disabled {
     background: grey;
