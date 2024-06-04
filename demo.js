@@ -21,8 +21,11 @@ export function createDemo(divId) {
     // alert(window.screen.width);
     let ca = null;
     let paused = false;
+    let recording = false;
 
     const clearColor = [0.90, 0.90, 0.90, 1.0];
+// ;    const clearColor = [1.0, 1.0, 1.0, 1.0]
+
     // const clearColor = [1, 1, 1, 1.0];
     const canvas = $('#demo-canvas');
     canvas.width = W;
@@ -459,8 +462,7 @@ export function createDemo(divId) {
         }
 
 
-        $('#play').style.display = paused ? "inline" : "none";
-        $('#pause').style.display = !paused ? "inline" : "none";
+
 
         const speed = parseInt($('#speed').value);
         // $('#speedLabel').innerHTML = ['1/8 x', '1/4 x', '1/2 x', '1x', '2x', '4x', '8x'][speed];
@@ -523,7 +525,9 @@ export function createDemo(divId) {
 
         $('#play-pause').onclick = () => {
             paused = !paused;
-            updateUI();
+            $('#play').style.display = paused ? "inline" : "none";
+            $('#pause').style.display = !paused ? "inline" : "none";
+            // updateUI();
         };
         $('#reset').onclick = () => {
 
@@ -531,10 +535,21 @@ export function createDemo(divId) {
             ca.resetGraft();
 
         };
-        $('#benchmark').onclick = () => {
-            ca.benchmark();
-            elapsedTime = 0;
-            first_draw = true;
+        // $('#benchmark').onclick = () => {
+        //     ca.benchmark();
+        //     elapsedTime = 0;
+        //     first_draw = true;
+        // };
+
+        $('#record').onclick = () => {
+            recording = !recording
+            $('#record_on').style.display = recording ? "inline" : "none";
+            $('#record_off').style.display = !recording ? "inline" : "none";
+            if (recording) {
+                mediaRecorder.start();
+            } else {
+                mediaRecorder.stop();
+            }
         };
 
 
@@ -555,10 +570,7 @@ export function createDemo(divId) {
         $('#screenshot').onclick = () => {
             Screenshot();
 
-            mediaRecorder.start();
-            setTimeout(function () {
-                mediaRecorder.stop();
-            }, 10000);
+
         };
 
 

@@ -442,19 +442,23 @@
                         <div class="play-reset tooltip" style="text-align: left;">
                     <span id="play-pause">
 
-                                                <svg class="demo-icon" id="play"><use
+                                                <svg class="demo-icon" id="play" style="display: none;"><use
                                                         xlink:href="#playIcon"></use></svg>
-                                                <svg class="demo-icon" id="pause" style="display: none;"><use
+                                                <svg class="demo-icon" id="pause" ><use
                                                         href="#pauseIcon"></use></svg>
                     </span>
                             <svg class="demo-icon" id="reset">
                                 <use href="#resetIcon"></use>
                             </svg>
 
-                            <label>
-                                <img id="benchmark" src="images/benchmark.png" width="72px" height="72px"/>
-                            </label>
+<!--                            <label>-->
+<!--                                <img id="benchmark" src="images/benchmark.png" width="72px" height="72px"/>-->
+<!--                            </label>-->
 
+                            <span id="record">
+                                <img id="record_off" src="images/record_off.png" width="64px" height="64px" style="padding: 5px;"/>
+                                <img id="record_on" src="images/record_on.png" width="64px" height="64px" style="padding: 5px; display: none;"/>
+                            </span>
                         </div>
                         <div class="speed">
                             <input type="range" id="speed" min="0" max="4" step="1" value="2"></br>Speed: <label
