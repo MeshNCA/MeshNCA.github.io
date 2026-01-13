@@ -972,11 +972,17 @@ const NCA_PROGRAMS = {
         vec4 last_neighbors;
         
         for (int j = 0; j < MAX_NEIGHBORS; j+=1) {
-            if (integerModulo(j, 4) == 0)  {
+            int bin_idx = integerModulo(j, 4);
+            if (bin_idx == 0)  {
                 float offset = floor((float(j) + 0.5) / 4.0); // without 0.1 it doesn't work. Invesitage why.
                 last_neighbors = getNeighbors(vertexIdx, offset);
             }
-            float neighbor_idx = last_neighbors[integerModulo(j, 4)];
+            float neighbor_idx;
+            if (bin_idx == 0) neighbor_idx = last_neighbors.x;
+            else if (bin_idx == 1) neighbor_idx = last_neighbors.y;
+            else if (bin_idx == 2) neighbor_idx = last_neighbors.z;
+            else if (bin_idx == 3) neighbor_idx = last_neighbors.w;
+            // float neighbor_idx = last_neighbors[integerModulo(j, 4)];
             if (neighbor_idx < -0.5) {
                 break;
             }  else {
