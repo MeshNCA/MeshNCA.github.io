@@ -508,16 +508,24 @@ export function createDemo(divId) {
     }
 
     function initUI() {
-        window.onkeyup = function (e) {
-            canvas.style.cursor = "default";
+        function setCanvasCursor(cursor) {
+            canvas.style.cursor = cursor;
             last_cursor_style = canvas.style.cursor;
         }
+
+        function restoreCanvasCursor() {
+            setCanvasCursor(params.camera_locked ? "default" : "grab");
+        }
+
+        window.onkeyup = function (e) {
+            if (e.key == "Shift") {
+                restoreCanvasCursor();
+            }
+        }
         window.onkeydown = function (e) {
-            e.preventDefault();
-            if (e.shiftKey) {
+            if (e.key == "Shift") {
                 if (canvas.style.cursor != "grabbing") {
-                    canvas.style.cursor = "grab";
-                    last_cursor_style = canvas.style.cursor;
+                    setCanvasCursor("grab");
                 }
 
             }
@@ -557,13 +565,10 @@ export function createDemo(divId) {
             params.camera_locked = !params.camera_locked
             if (params.camera_locked) {
                 $('#camera_toggle').src = "images/camera_locked.png";
-                canvas.style.cursor = "default";
-                last_cursor_style = canvas.style.cursor;
             } else {
                 $('#camera_toggle').src = "images/camera_unlocked.png";
-                canvas.style.cursor = "grab";
-                last_cursor_style = canvas.style.cursor;
             }
+            restoreCanvasCursor();
 
         };
 
